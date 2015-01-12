@@ -1,4 +1,5 @@
 var expect = require('expect.js');
+var fs = require('fs');
 var tmp = require('tmp');
 var lib;
 
@@ -152,6 +153,40 @@ describe('whatsupdoc library', function () {
           cwd: __dirname
         });
       }).not.to.throwError(err('project documentation'));
+    });
+
+    describe('project documentation scaffolding', function () {
+      it('has an index', function () {
+        expect(fs.existsSync(tmpDir + '/index.html')).to.be(true);
+      });
+
+      it('a `example.js.html` file', function () {
+        expect(fs.existsSync(tmpDir + '/example.js.html')).to.be(true);
+      });
+
+      it('a `example.less.html`', function () {
+        expect(fs.existsSync(tmpDir + '/example.less.html')).to.be(true);
+      });
+
+      it('a `dir/example.html.html` file', function () {
+        expect(fs.existsSync(tmpDir + '/dir/example.html.html')).to.be(true);
+      });
+
+      it('a `dir/sub/example.md.html` file', function () {
+        expect(fs.existsSync(tmpDir + '/dir/sub/example.md.html')).to.be(true);
+      });
+
+      it('a `assets/styles/styles.css` file', function () {
+        expect(fs.existsSync(tmpDir + '/assets/styles/styles.css')).to.be(true);
+      });
+
+      it('a `assets/scripts/scripts.js` file', function () {
+        expect(fs.existsSync(tmpDir + '/assets/scripts/scripts.js')).to.be(true);
+      });
+
+      it('a `assets/favicon.ico` file', function () {
+        expect(fs.existsSync(tmpDir + '/assets/favicon.ico')).to.be(true);
+      });
     });
   });
 });
