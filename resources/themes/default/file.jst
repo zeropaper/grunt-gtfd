@@ -1,0 +1,29 @@
+<html>
+<head>
+  <title><%= pageTitle %></title>
+  <link type="text/css" rel="stylesheet" href="<%= assets %>/styles.css" />
+</head>
+<body>
+  <header>
+    <h1><%= pageTitle %></h1>
+  </header>
+
+  <div class="container content">
+  <% blocks.forEach(function (block) { %>
+    <div class="row">
+      <div class="col-md-6"><%= block.documentation %></div>
+      <div class="col-md-6"><%= block.code %></div>
+    </div>
+  <% }); %>
+  </div>
+
+  <footer>
+
+  </footer>
+
+  <script type="text/javacript" src="<%= assets %>/scripts/scripts.js"></script>
+  <script type="text/javacript">
+
+  </script>
+</body>
+</html>
