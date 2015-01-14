@@ -5,6 +5,8 @@ module.exports = function (grunt) {
     var defaults = {};
     var options = this.options(defaults);
 
-    console.info('whatsupdoc', [[arguments]]);
+    this.files.forEach(function (files) {
+      lib.writeProjectDocumentation(files.src, files.dest, options);
+    });
   });
 };

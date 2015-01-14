@@ -1,12 +1,15 @@
 <html>
 <head>
   <title><%= pageTitle %></title>
-  <link type="text/css" rel="stylesheet" href="<%= assets %>/styles.css" />
+  <link type="text/css" rel="stylesheet" href="<%= assets %>/styles/styles.css" />
 </head>
 <body>
   <header>
     <h1><%= pageTitle %></h1>
   </header>
+
+  <%= navigation %>
+  <%= breadcrumb %>
 
   <div class="container content">
   <% blocks.forEach(function (block) { %>
@@ -21,9 +24,14 @@
 
   </footer>
 
-  <script type="text/javacript" src="<%= assets %>/scripts/scripts.js"></script>
-  <script type="text/javacript">
-
+  <script src="<%= assets %>/scripts/scripts.js"></script>
+  <script>
+  var config = <%= config %>;
+  config.files = (config.files || []).map(function (filepath) {
+    return { filepath: filepath };
+  });
+  config.el = document.body;
+  new whatsupdoc(config);
   </script>
 </body>
 </html>

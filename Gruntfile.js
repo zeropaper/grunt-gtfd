@@ -10,7 +10,15 @@ module.exports = function (grunt) {
 
       project: {
         files: [
-          'tasks/**/*.js'
+          {
+            src: [
+              'lib/**/*.js',
+              'resources/themes/default/assets/scripts/*.src.js',
+              'resources/themes/default/assets/styles/*.css',
+              'tasks/**/*.js'
+            ],
+            dest: 'docs'
+          }
         ]
       }
     }
