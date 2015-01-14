@@ -1,4 +1,4 @@
-!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.whatsupdoc=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+!function(e){if("object"==typeof exports&&"undefined"!=typeof module)module.exports=e();else if("function"==typeof define&&define.amd)define([],e);else{var f;"undefined"!=typeof window?f=window:"undefined"!=typeof global?f=global:"undefined"!=typeof self&&(f=self),f.gtfd=e()}}(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 /*!
  * The buffer module from node.js, for the browser.
  *
@@ -2014,7 +2014,7 @@ extend(Collection.prototype, BackboneEvents, {
     get: function (query, indexName) {
         if (!query) return;
         var index = this._indexes[indexName || this.mainIndex];
-        return index[query] || index[query[this.mainIndex]] || this._indexes.cid[query.cid];
+        return index[query] || index[query[this.mainIndex]] || this._indexes.cid[query] || this._indexes.cid[query.cid];
     },
 
     // Get the model at the given index.
@@ -2677,7 +2677,7 @@ var wrapError = function (model, options) {
 
 module.exports = Model;
 
-},{"ampersand-state":14,"ampersand-sync":19,"underscore":84}],14:[function(require,module,exports){
+},{"ampersand-state":14,"ampersand-sync":19,"underscore":57}],14:[function(require,module,exports){
 ;if (typeof window !== "undefined") {  window.ampersand = window.ampersand || {};  window.ampersand["ampersand-state"] = window.ampersand["ampersand-state"] || [];  window.ampersand["ampersand-state"].push("4.4.4");}
 var _ = require('underscore');
 var BBEvents = require('backbone-events-standalone');
@@ -3453,7 +3453,7 @@ Base.extend = extend;
 // Our main exports
 module.exports = Base;
 
-},{"array-next":15,"backbone-events-standalone":17,"key-tree-store":18,"underscore":84}],15:[function(require,module,exports){
+},{"array-next":15,"backbone-events-standalone":17,"key-tree-store":18,"underscore":57}],15:[function(require,module,exports){
 module.exports = function arrayNext(array, currentItem) {
     var len = array.length;
     var newIndex = array.indexOf(currentItem) + 1;
@@ -6042,13 +6042,13 @@ View.extend = BaseState.extend;
 module.exports = View;
 
 },{"ampersand-collection-view":34,"ampersand-dom-bindings":39,"ampersand-state":42,"domify":47,"events-mixin":48,"get-object-path":53,"matches-selector":54,"underscore":55}],34:[function(require,module,exports){
-;if (typeof window !== "undefined") {  window.ampersand = window.ampersand || {};  window.ampersand["ampersand-collection-view"] = window.ampersand["ampersand-collection-view"] || [];  window.ampersand["ampersand-collection-view"].push("1.1.3");}
+;if (typeof window !== "undefined") {  window.ampersand = window.ampersand || {};  window.ampersand["ampersand-collection-view"] = window.ampersand["ampersand-collection-view"] || [];  window.ampersand["ampersand-collection-view"].push("1.2.0");}
 var _ = require('underscore');
 var BBEvents = require('backbone-events-standalone');
 var ampExtend = require('ampersand-class-extend');
 
 // options
-var options = ['collection', 'el', 'viewOptions', 'view', 'filter', 'reverse', 'parent'];
+var options = ['collection', 'el', 'viewOptions', 'view', 'emptyView', 'filter', 'reverse', 'parent'];
 
 
 function CollectionView(spec) {
@@ -6084,30 +6084,26 @@ _.extend(CollectionView.prototype, BBEvents, {
             return model === view.model;
         });
     },
-    _createViewForModel: function (model) {
+    _createViewForModel: function (model, renderOpts) {
         var view = new this.view(_({model: model, collection: this.collection}).extend(this.viewOptions));
         this.views.push(view);
         view.parent = this;
         view.renderedByParentView = true;
-        view.render();
+        view.render(renderOpts);
         return view;
     },
-    _getOrCreateByModel: function (model) {
-        return this._getViewByModel(model) || this._createViewForModel(model);
+    _getOrCreateByModel: function (model, renderOpts) {
+        return this._getViewByModel(model) || this._createViewForModel(model, renderOpts);
     },
     _addViewForModel: function (model, collection, options) {
-        var view = this._getViewByModel(model);
         var matches = this.filter ? this.filter(model) : true;
         if (!matches) {
             return;
         }
-        if (!view) {
-            view = new this.view(_({model: model, collection: this.collection}).extend(this.viewOptions));
-            this.views.push(view);
-            view.parent = this;
-            view.renderedByParentView = true;
-            view.render({containerEl: this.el});
+        if (this.renderedEmptyView) {
+            this.renderedEmptyView.remove();
         }
+        var view = this._getOrCreateByModel(model, {containerEl: this.el});
         if (options && options.rerender) {
             this._insertView(view);
         } else {
@@ -6156,6 +6152,9 @@ _.extend(CollectionView.prototype, BBEvents, {
             // to give user option of gracefully destroying.
             view = this.views.splice(index, 1)[0];
             this._removeView(view);
+            if (this.views.length === 0) {
+                this._renderEmptyView();
+            }
         }
     },
     _removeView: function (view) {
@@ -6167,12 +6166,21 @@ _.extend(CollectionView.prototype, BBEvents, {
     },
     _renderAll: function () {
         this.collection.each(this._addViewForModel, this);
+        if (this.views.length === 0) {
+            this._renderEmptyView();
+        }
     },
     _rerenderAll: function (collection, options) {
         options = options || {};
         this.collection.each(function (model) {
             this._addViewForModel(model, this, _.extend(options, {rerender: true}));
         }, this);
+    },
+    _renderEmptyView: function() {
+        if (this.emptyView) {
+            var view = this.renderedEmptyView = new this.emptyView();
+            this.el.appendChild(view.render().el);
+        }
     },
     _reset: function () {
         var newViews = this.collection.map(this._getOrCreateByModel, this);
@@ -6184,6 +6192,9 @@ _.extend(CollectionView.prototype, BBEvents, {
         //Rerender the full list with the new views
         this.views = newViews;
         this._rerenderAll();
+        if (this.views.length === 0) {
+            this._renderEmptyView();
+        }
     }
 });
 
@@ -7729,65 +7740,7 @@ FilesCollection.File = FileModel;
 
 FilesCollection.Directory = DirectoryCollection;
 
-FilesCollection.expand = function (arr) {
-  return arr.map(function (item) {
-    return { filepath: item };
-  });
-};
-
-},{"ampersand-collection":57,"ampersand-model":63,"path":5}],57:[function(require,module,exports){
-arguments[4][7][0].apply(exports,arguments)
-},{"ampersand-class-extend":58,"backbone-events-standalone":60,"dup":7,"extend-object":61,"is-array":62}],58:[function(require,module,exports){
-arguments[4][8][0].apply(exports,arguments)
-},{"dup":8,"extend-object":61}],59:[function(require,module,exports){
-arguments[4][9][0].apply(exports,arguments)
-},{"dup":9}],60:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"./backbone-events-standalone":59,"dup":10}],61:[function(require,module,exports){
-arguments[4][11][0].apply(exports,arguments)
-},{"dup":11}],62:[function(require,module,exports){
-arguments[4][4][0].apply(exports,arguments)
-},{"dup":4}],63:[function(require,module,exports){
-arguments[4][13][0].apply(exports,arguments)
-},{"ampersand-state":64,"ampersand-sync":69,"dup":13,"underscore":83}],64:[function(require,module,exports){
-arguments[4][14][0].apply(exports,arguments)
-},{"array-next":65,"backbone-events-standalone":67,"dup":14,"key-tree-store":68,"underscore":83}],65:[function(require,module,exports){
-arguments[4][15][0].apply(exports,arguments)
-},{"dup":15}],66:[function(require,module,exports){
-arguments[4][9][0].apply(exports,arguments)
-},{"dup":9}],67:[function(require,module,exports){
-arguments[4][10][0].apply(exports,arguments)
-},{"./backbone-events-standalone":66,"dup":10}],68:[function(require,module,exports){
-arguments[4][18][0].apply(exports,arguments)
-},{"dup":18}],69:[function(require,module,exports){
-arguments[4][19][0].apply(exports,arguments)
-},{"dup":19,"qs":70,"underscore":75,"xhr":76}],70:[function(require,module,exports){
-arguments[4][20][0].apply(exports,arguments)
-},{"./lib":71,"dup":20}],71:[function(require,module,exports){
-arguments[4][21][0].apply(exports,arguments)
-},{"./parse":72,"./stringify":73,"dup":21}],72:[function(require,module,exports){
-arguments[4][22][0].apply(exports,arguments)
-},{"./utils":74,"dup":22}],73:[function(require,module,exports){
-arguments[4][23][0].apply(exports,arguments)
-},{"buffer":1,"dup":23}],74:[function(require,module,exports){
-arguments[4][24][0].apply(exports,arguments)
-},{"buffer":1,"dup":24}],75:[function(require,module,exports){
-arguments[4][25][0].apply(exports,arguments)
-},{"dup":25}],76:[function(require,module,exports){
-arguments[4][26][0].apply(exports,arguments)
-},{"dup":26,"global/window":77,"once":78,"parse-headers":82}],77:[function(require,module,exports){
-arguments[4][27][0].apply(exports,arguments)
-},{"dup":27}],78:[function(require,module,exports){
-arguments[4][28][0].apply(exports,arguments)
-},{"dup":28}],79:[function(require,module,exports){
-arguments[4][29][0].apply(exports,arguments)
-},{"dup":29,"is-function":80}],80:[function(require,module,exports){
-arguments[4][30][0].apply(exports,arguments)
-},{"dup":30}],81:[function(require,module,exports){
-arguments[4][31][0].apply(exports,arguments)
-},{"dup":31}],82:[function(require,module,exports){
-arguments[4][32][0].apply(exports,arguments)
-},{"dup":32,"for-each":79,"trim":81}],83:[function(require,module,exports){
+},{"ampersand-collection":7,"ampersand-model":13,"path":5}],57:[function(require,module,exports){
 //     Underscore.js 1.7.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -9204,14 +9157,12 @@ arguments[4][32][0].apply(exports,arguments)
   }
 }.call(this));
 
-},{}],84:[function(require,module,exports){
-arguments[4][83][0].apply(exports,arguments)
-},{"dup":83}],85:[function(require,module,exports){
+},{}],58:[function(require,module,exports){
 // # Client scripts
 //
 // compile using browserify:
 // ```js
-// browserify -s whatsupdoc scripts.src.js -o scripts.js
+// browserify -s gtfd scripts.src.js -o scripts.js
 // ```
 
 /* jshint browser: true, node: true */
@@ -9270,7 +9221,7 @@ module.exports = View.extend({
   }
 });
 
-},{"./search.src":86,"ampersand-view":33,"files-collection":56}],86:[function(require,module,exports){
+},{"./search.src":59,"ampersand-view":33,"files-collection":56}],59:[function(require,module,exports){
 var Model           = require('ampersand-model');
 var Collection      = require('ampersand-collection');
 var View            = require('ampersand-view');
@@ -9368,9 +9319,10 @@ var SearchResult = View.extend({
       selector: '.label'
     },
     'model.value': {
-      type: 'attribute',
-      selector: '.label',
-      name: 'href'
+      type: function (el, value/*, previousValue*/) {
+        el.setAttribute('href', value + '.html');
+      },
+      selector: '.label'
     },
     'model.score': {
       type: 'text',
@@ -9506,5 +9458,5 @@ module.exports = View.extend({
   }
 });
 
-},{"ampersand-collection":7,"ampersand-model":13,"ampersand-view":33}]},{},[85])(85)
+},{"ampersand-collection":7,"ampersand-model":13,"ampersand-view":33}]},{},[58])(58)
 });

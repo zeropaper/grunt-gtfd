@@ -1,0 +1,9 @@
+<nav class="docs-nav">
+  <div class="search"></div>
+  <div class="toggle">Files</div>
+  <ul class="directory root"><% collection.get(".").files.forEach(function (child) { %>
+    <li class="<%= (child.active ? "active" : (child.trail ? "trail" : "")) %>">
+      <%= navigationItem({ model: child, navigationItem: navigationItem }) %>
+    </li>
+  <% }) %></ul>
+</nav>

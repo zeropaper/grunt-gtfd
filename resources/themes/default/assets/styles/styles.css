@@ -426,6 +426,10 @@ th {
   padding: 0;
 }
 
+code {
+  background-color: #f8f8ff;
+}
+
 /*---------------------- Syntax Highlighting -----------------------------*/
 
 td.linenos { background-color: #f0f0f0; padding-right: 10px; }
@@ -563,4 +567,293 @@ pre .hljs-chunk {
 
 pre .hljs-tex .hljs-formula {
   opacity: 0.5;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  padding: 120px 0 40px 0;
+  background-color: #666;
+  position: absolute;
+  overflow: auto;
+  width: 100%;
+  min-height: 100%;
+  font-size: 14px;
+}
+
+body > header,
+body > footer {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+body > header {
+  top: 0;
+  height: 120px;
+}
+
+body > header > h1 {
+  font-size: 22px;
+}
+
+body > footer {
+  bottom: 0;
+  height: 20px;
+}
+
+body {
+  color: #666;
+}
+
+a,
+a:link,
+a:hover,
+a:active,
+a:focus {
+  color: #333;
+  text-decoration: none;
+}
+
+body > header,
+body > footer,
+.container,
+.docs-nav {
+  background-color: white;
+  padding: 0 15px;
+}
+
+.container,
+.docs-nav {
+  position: relative;
+  float: left;
+}
+
+.container {
+  width: 100%;
+  margin-left: -200px;
+  padding: 0 15px 0 230px;
+  z-index: 1;
+}
+
+body > header h3,
+.breadcrumb {
+  display: inline-block;
+  line-height: 25px;
+  vertical-align: baseline;
+  margin-top: 15px;
+  height: 30px;
+  margin-bottom: 0;
+}
+body > header h3 {
+  padding-left: 15px;
+}
+.breadcrumb {
+  padding-right: 15px;
+}
+
+.breadcrumb {
+  list-style: none;
+  padding-left: 0;
+}
+
+.breadcrumb li {
+  display: inline-block;
+}
+
+.breadcrumb li:after {
+  display: inline-block;
+  content: '/';
+}
+
+.docs-nav {
+  width: 200px;
+  padding: 15px;
+  z-index: 2;
+  background-color: #aaa;
+}
+
+.docs-nav .search {
+  padding: 0 0 15px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.docs-nav .search input {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+.docs-nav .results {
+  background-color: #fff;
+  position: absolute;
+  box-shadow: 0 2px 2px #666;
+  max-width: 100%;
+}
+.docs-nav .score {
+  font-size: 12px;
+  position: absolute;
+  top: 2;
+  right: 4;
+}
+.docs-nav .results > div {
+  padding: 15px;
+  position: relative;
+}
+.docs-nav .results > div + div {
+  border-top: 1px solid #666;
+}
+
+.row {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  margin: 0 -15px;
+}
+
+.col-md-6 {
+  width: 50%;
+  position: relative;
+  min-height: 1px;
+  float: left;
+  padding: 0 15px;
+}
+
+
+@media screen and (max-width: 720px) {
+  .docs-nav {
+    position: absolute;
+    max-height: 100%;
+    margin-left: -185px;
+    transition: margin-left 0.218s ease;
+
+    top:  0;
+    bottom: 0;
+}
+  .docs-nav:hover {
+    margin-left: 0;
+  }
+
+  .container {
+    margin-left: 0;
+    padding-left: 15px;
+  }
+
+  .col-md-6 {
+    width: 100%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+ul.directory {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+ul.directory > li {
+  padding: 0;
+  margin: 0;
+}
+
+ul.directory > li > a,
+ul.directory > li > span {
+  line-height: 28px;
+  font-size: 16px;
+  cursor: pointer;
+  display: block;
+  padding: 0 15px;
+}
+
+ul.directory > li > ul {
+  max-height: 0;
+}
+
+ul.directory > li.trail > ul,
+ul.directory > li.open > ul {
+  max-height: 100000px;
+}
+
+ul.directory > li.trail {
+}
+
+ul.directory > li.active > a,
+ul.directory > li.active:hover > a {
+}
+
+ul.directory > li:hover > a,
+ul.directory > li:hover > span {
+}
+
+
+
+
+.directory .directory > li > a,
+.directory .directory > li > span {
+  padding-left: 25px;
+}
+
+.directory .directory .directory > li > a,
+.directory .directory .directory > li > span {
+  padding-left: 35px;
+}
+
+.directory .directory .directory .directory > li > a,
+.directory .directory .directory .directory > li > span {
+  padding-left: 45px;
+}
+
+.directory .directory .directory .directory .directory > li > a,
+.directory .directory .directory .directory .directory > li > span {
+  padding-left: 55px;
+}
+
+.directory .directory .directory .directory .directory .directory > li > a,
+.directory .directory .directory .directory .directory .directory > li > span {
+  padding-left: 65px;
+}
+
+.directory .directory .directory .directory .directory .directory .directory > li > a,
+.directory .directory .directory .directory .directory .directory .directory > li > span {
+  padding-left: 75px;
 }

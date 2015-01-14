@@ -1,3 +1,8 @@
+<%
+/*
+console.info('log in resources/themes/default/file.jst', model.toJSON());
+*/
+%>
 <html>
 <head>
   <title><%= pageTitle %></title>
@@ -5,19 +10,27 @@
 </head>
 <body>
   <header>
+    <div class="row">
+      <h3><a href="<%= model.relative('index') %>.html">Index</a></h3>
+      <%= breadcrumb %>
+    </div>
     <h1><%= pageTitle %></h1>
   </header>
 
   <%= navigation %>
-  <%= breadcrumb %>
+
 
   <div class="container content">
-  <% blocks.forEach(function (block) { %>
-    <div class="row">
-      <div class="col-md-6"><%= block.documentation %></div>
-      <div class="col-md-6"><%= block.code %></div>
+    <div>
+      <%= model.body %>
+
+      <% model.blocks.forEach(function (block) { %>
+      <div class="row">
+        <div class="col-md-12 col-lg-6"><%= block.documentation %></div>
+        <div class="col-md-12 col-lg-6"><%= block.code %></div>
+      </div>
+      <% }); %>
     </div>
-  <% }); %>
   </div>
 
   <footer>
@@ -31,7 +44,7 @@
     return { filepath: filepath };
   });
   config.el = document.body;
-  new whatsupdoc(config);
+  new gtfd(config);
   </script>
 </body>
 </html>

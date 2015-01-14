@@ -2,7 +2,7 @@
 //
 // compile using browserify:
 // ```js
-// browserify -s whatsupdoc scripts.src.js -o scripts.js
+// browserify -s gtfd scripts.src.js -o scripts.js
 // ```
 
 /* jshint browser: true, node: true */

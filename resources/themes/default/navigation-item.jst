@@ -1,0 +1,18 @@
+<% if (model.isDir) { %>
+  <%
+  var index = model.files.get("index");
+  if (!index) { %>
+    <span class="dirname"><%= model.basename %></span>
+  <% } else { %>
+    <a href="<%= model.fileurl %>.html"><%= model.basename %></a>
+  <% } %>
+  <ul class="directory">
+  <% model.files.forEach(function (child) { %>
+    <li class="<%= (child.active ? "active" : (child.trail ? "trail" : "")) %>">
+      <%= navigationItem({ model: child, navigationItem: navigationItem }) %>
+    </li>
+  <% }) %>
+  </ul>
+<% } else { %>
+  <a href="<%= model.fileurl %>.html"><%= model.basename %></a>
+<% } %>

@@ -7,7 +7,7 @@ block comment, not documentation block
 */
 
 function () { // not documentation block
-
+  var self = this;
 }
 
 // first documentation comes after first code and has only 1 line
@@ -20,6 +20,8 @@ var example = 'string';
 // }
 // ```
 // and so on
+//
+// Should be in the same block
 
 var arr = [
   'always', // not documentation block

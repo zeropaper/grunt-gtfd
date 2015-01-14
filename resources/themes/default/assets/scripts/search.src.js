@@ -95,9 +95,10 @@ var SearchResult = View.extend({
       selector: '.label'
     },
     'model.value': {
-      type: 'attribute',
-      selector: '.label',
-      name: 'href'
+      type: function (el, value/*, previousValue*/) {
+        el.setAttribute('href', value + '.html');
+      },
+      selector: '.label'
     },
     'model.score': {
       type: 'text',
