@@ -1,0 +1,314 @@
+
+<html>
+<head>
+  <title>gtfd.js</title>
+  <link type="text/css" rel="stylesheet" href="../assets/styles/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="row">
+      <h3><a href="../index.html">Index</a></h3>
+      <ul class="breadcrumb"><li>tasks</li></ul>
+    </div>
+    <h1>gtfd.js</h1>
+  </header>
+
+  <nav class="docs-nav">
+<div class="search"></div>
+<div class="toggle">Files</div>
+<ul class="directory root">
+<li class="">
+
+<a href="../Gruntfile.js.html">Gruntfile.js</a>
+
+</li>
+
+<li class="">
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">lib</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../lib/blocks-collection.js.html">blocks-collection.js</a>
+
+</li>
+
+<li class="">
+
+<a href="../lib/index.js.html">index.js</a>
+
+</li>
+
+<li class="">
+
+<a href="../lib/rendering-utils.js.html">rendering-utils.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">node_modules</span>
+
+<ul class="directory">
+
+<li class="">
+
+
+<span class="dirname">ampersand-collection</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../node_modules/ampersand-collection/ampersand-collection.js.html">ampersand-collection.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">ampersand-model</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../node_modules/ampersand-model/ampersand-model.js.html">ampersand-model.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">files-collection</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../node_modules/files-collection/index.js.html">index.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">resources</span>
+
+<ul class="directory">
+
+<li class="">
+
+
+<span class="dirname">themes</span>
+
+<ul class="directory">
+
+<li class="">
+
+
+<span class="dirname">default</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../resources/themes/default/file.jst.html">file.jst</a>
+
+</li>
+
+<li class="">
+
+<a href="../resources/themes/default/navigation-item.jst.html">navigation-item.jst</a>
+
+</li>
+
+<li class="">
+
+<a href="../resources/themes/default/navigation.jst.html">navigation.jst</a>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">assets</span>
+
+<ul class="directory">
+
+<li class="">
+
+
+<span class="dirname">scripts</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../resources/themes/default/assets/scripts/scripts.src.js.html">scripts.src.js</a>
+
+</li>
+
+<li class="">
+
+<a href="../resources/themes/default/assets/scripts/search.src.js.html">search.src.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">styles</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../resources/themes/default/assets/styles/styles.css.html">styles.css</a>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="trail">
+
+
+<span class="dirname">tasks</span>
+
+<ul class="directory">
+
+<li class="active">
+
+<a href="gtfd.js.html">gtfd.js</a>
+
+</li>
+
+</ul>
+
+</li>
+</ul>
+</nav>
+
+
+  <div class="container content">
+    <div>
+      
+
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"></div>
+        <div class="col-md-12 col-lg-6"><pre><code class="js"><span class="hljs-keyword">var</span> FilesCollection = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./../lib'</span>);
+
+<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(grunt)</span> </span>{
+  grunt.registerMultiTask(<span class="hljs-string">'gtfd'</span>, <span class="hljs-string">'Generates documentation'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">var</span> defaults = {};
+    <span class="hljs-keyword">var</span> options = <span class="hljs-keyword">this</span>.options(defaults);
+
+    <span class="hljs-keyword">this</span>.files.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(files, num)</span> </span>{
+
+      options.destination = files.dest || options.destination;
+      options.cwd = files.orig.cwd || <span class="hljs-string">''</span>;
+
+      grunt.verbose.writeln(<span class="hljs-string">'Processing documentation (num '</span> + num + <span class="hljs-string">') destination '</span> +
+                            options.destination + <span class="hljs-string">' with '</span> + files.src.length + <span class="hljs-string">' files.'</span>);
+
+      <span class="hljs-keyword">var</span> collection = <span class="hljs-keyword">new</span> FilesCollection([], options);
+      <span class="hljs-comment">/*
+      collection.on('all', function (evtName) {
+        grunt.verbose.writeln('Documentation event ' + evtName + '...');
+      });
+      */</span>
+      collection.on(<span class="hljs-string">'add'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(model)</span> </span>{
+        grunt.verbose.writeln(<span class="hljs-string">'Added '</span> + model.filepath + <span class="hljs-string">' '</span> +
+                              (model.isFile &amp;&amp; !model.isDir ? <span class="hljs-string">'file'</span> : <span class="hljs-string">'directory'</span>) +
+                              <span class="hljs-string">' to the documentation'</span>);
+      });
+
+      collection.on(<span class="hljs-string">'change'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(model)</span> </span>{
+        grunt.verbose.writeln(<span class="hljs-string">'Changes on '</span> + model.filepath);
+      });
+
+      collection.on(<span class="hljs-string">'writefile'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(model)</span> </span>{
+        grunt.log.writeln(<span class="hljs-string">'Writing '</span> + model.filepath + <span class="hljs-string">' documentation'</span>);
+      });
+
+      collection.on(<span class="hljs-string">'copyasset'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(assetpath)</span> </span>{
+        grunt.log.writeln(<span class="hljs-string">'Copying '</span> + assetpath + <span class="hljs-string">' asset'</span>);
+      });
+
+      collection.reset(FilesCollection.expand(files.src));
+      collection.writeFiles();
+    });
+  });
+};
+</code></pre></div>
+      </div>
+      
+    </div>
+  </div>
+
+  <footer>
+
+  </footer>
+
+  <script src="../assets/scripts/scripts.js"></script>
+  <script>
+  var config = {"files":["Gruntfile.js","README.md","lib/blocks-collection.js","lib/index.js","lib/rendering-utils.js","node_modules/ampersand-collection/ampersand-collection.js","node_modules/ampersand-model/ampersand-model.js","node_modules/files-collection/index.js","resources/themes/default/assets/scripts/scripts.src.js","resources/themes/default/assets/scripts/search.src.js","resources/themes/default/assets/styles/styles.css","resources/themes/default/file.jst","resources/themes/default/navigation-item.jst","resources/themes/default/navigation.jst","tasks/gtfd.js"],"active":"tasks/gtfd.js"};
+  config.files = (config.files || []).map(function (filepath) {
+    return { filepath: filepath };
+  });
+  config.el = document.body;
+  new gtfd(config);
+  </script>
+</body>
+</html>

@@ -1,0 +1,124 @@
+
+<html>
+<head>
+  <title>example</title>
+  <link type="text/css" rel="stylesheet" href="../assets/styles/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="row">
+      <h3><a href="../index.html">Index</a></h3>
+      <ul class="breadcrumb"><li>dir</li></ul>
+    </div>
+    <h1>example</h1>
+  </header>
+
+  <nav class="docs-nav">
+<div class="search"></div>
+<div class="toggle">Files</div>
+<ul class="directory root">
+<li class="">
+
+</li>
+
+<li class="">
+
+<a href="../example.js.html">example.js</a>
+
+</li>
+
+<li class="">
+
+<a href="../example.less.html">example.less</a>
+
+</li>
+
+<li class="trail">
+
+
+<span class="dirname">dir</span>
+
+<ul class="directory">
+
+<li class="active">
+
+<a href="example.html.html">example</a>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">sub</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="sub/README.md.html">README.md</a>
+
+</li>
+
+<li class="">
+
+<a href="sub/example.md.html">example.md</a>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+</ul>
+</nav>
+
+
+  <div class="container content">
+    <div>
+      
+
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"></div>
+        <div class="col-md-12 col-lg-6"><pre><code class="html"><span class="hljs-tag">&lt;<span class="hljs-title">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">head</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-title">body</span>&gt;</span>
+
+<span class="hljs-comment">&lt;!--
+This won't work.
+--&gt;</span>
+
+<span class="hljs-comment">&lt;!--</span></code></pre></div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"><p> Yes… this should work</p>
+</div>
+        <div class="col-md-12 col-lg-6"><pre><code class="html">--&gt;
+
+<span class="hljs-tag">&lt;/<span class="hljs-title">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">html</span>&gt;</span>
+</code></pre></div>
+      </div>
+      
+    </div>
+  </div>
+
+  <footer>
+
+  </footer>
+
+  <script src="../assets/scripts/scripts.js"></script>
+  <script>
+  var config = {"files":["README.md","dir/example.html","dir/sub/README.md","dir/sub/example.md","example.js","example.less"],"active":"dir/example.html"};
+  config.files = (config.files || []).map(function (filepath) {
+    return { filepath: filepath };
+  });
+  config.el = document.body;
+  new gtfd(config);
+  </script>
+</body>
+</html>

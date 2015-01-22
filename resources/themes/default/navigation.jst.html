@@ -1,0 +1,279 @@
+
+<html>
+<head>
+  <title>navigation.jst</title>
+  <link type="text/css" rel="stylesheet" href="../../../assets/styles/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="row">
+      <h3><a href="../../../index.html">Index</a></h3>
+      <ul class="breadcrumb"><li>resources</li><li>themes</li><li>default</li></ul>
+    </div>
+    <h1>navigation.jst</h1>
+  </header>
+
+  <nav class="docs-nav">
+<div class="search"></div>
+<div class="toggle">Files</div>
+<ul class="directory root">
+<li class="">
+
+<a href="../../../Gruntfile.js.html">Gruntfile.js</a>
+
+</li>
+
+<li class="">
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">lib</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../../../lib/blocks-collection.js.html">blocks-collection.js</a>
+
+</li>
+
+<li class="">
+
+<a href="../../../lib/index.js.html">index.js</a>
+
+</li>
+
+<li class="">
+
+<a href="../../../lib/rendering-utils.js.html">rendering-utils.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">node_modules</span>
+
+<ul class="directory">
+
+<li class="">
+
+
+<span class="dirname">ampersand-collection</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../../../node_modules/ampersand-collection/ampersand-collection.js.html">ampersand-collection.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">ampersand-model</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../../../node_modules/ampersand-model/ampersand-model.js.html">ampersand-model.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">files-collection</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../../../node_modules/files-collection/index.js.html">index.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="trail">
+
+
+<span class="dirname">resources</span>
+
+<ul class="directory">
+
+<li class="trail">
+
+
+<span class="dirname">themes</span>
+
+<ul class="directory">
+
+<li class="trail">
+
+
+<span class="dirname">default</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="file.jst.html">file.jst</a>
+
+</li>
+
+<li class="">
+
+<a href="navigation-item.jst.html">navigation-item.jst</a>
+
+</li>
+
+<li class="active">
+
+<a href="navigation.jst.html">navigation.jst</a>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">assets</span>
+
+<ul class="directory">
+
+<li class="">
+
+
+<span class="dirname">scripts</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="assets/scripts/scripts.src.js.html">scripts.src.js</a>
+
+</li>
+
+<li class="">
+
+<a href="assets/scripts/search.src.js.html">search.src.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">styles</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="assets/styles/styles.css.html">styles.css</a>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">tasks</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../../../tasks/gtfd.js.html">gtfd.js</a>
+
+</li>
+
+</ul>
+
+</li>
+</ul>
+</nav>
+
+
+  <div class="container content">
+    <div>
+      
+
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"></div>
+        <div class="col-md-12 col-lg-6"><pre><code class="jst"><nav class="docs-nav">
+  <div class="search"></div>
+  <div class="toggle">Files</div>
+  <ul class="directory root"><% collection.get(".").files.forEach(function (child) { %>
+    <li class="<%= (child.active ? "active" : (child.trail ? "trail" : "")) %>">
+      <%= navigationItem({ model: child, navigationItem: navigationItem }) %>
+    </li>
+  <% }) %></ul>
+</nav>
+</code></pre></div>
+      </div>
+      
+    </div>
+  </div>
+
+  <footer>
+
+  </footer>
+
+  <script src="../../../assets/scripts/scripts.js"></script>
+  <script>
+  var config = {"files":["Gruntfile.js","README.md","lib/blocks-collection.js","lib/index.js","lib/rendering-utils.js","node_modules/ampersand-collection/ampersand-collection.js","node_modules/ampersand-model/ampersand-model.js","node_modules/files-collection/index.js","resources/themes/default/assets/scripts/scripts.src.js","resources/themes/default/assets/scripts/search.src.js","resources/themes/default/assets/styles/styles.css","resources/themes/default/file.jst","resources/themes/default/navigation-item.jst","resources/themes/default/navigation.jst","tasks/gtfd.js"],"active":"resources/themes/default/navigation.jst"};
+  config.files = (config.files || []).map(function (filepath) {
+    return { filepath: filepath };
+  });
+  config.el = document.body;
+  new gtfd(config);
+  </script>
+</body>
+</html>

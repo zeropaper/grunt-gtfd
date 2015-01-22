@@ -1,0 +1,328 @@
+
+<html>
+<head>
+  <title>blocks-collection.js</title>
+  <link type="text/css" rel="stylesheet" href="../assets/styles/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="row">
+      <h3><a href="../index.html">Index</a></h3>
+      <ul class="breadcrumb"><li>lib</li></ul>
+    </div>
+    <h1>blocks-collection.js</h1>
+  </header>
+
+  <nav class="docs-nav">
+<div class="search"></div>
+<div class="toggle">Files</div>
+<ul class="directory root">
+<li class="">
+
+<a href="../Gruntfile.js.html">Gruntfile.js</a>
+
+</li>
+
+<li class="">
+
+</li>
+
+<li class="trail">
+
+
+<span class="dirname">lib</span>
+
+<ul class="directory">
+
+<li class="active">
+
+<a href="blocks-collection.js.html">blocks-collection.js</a>
+
+</li>
+
+<li class="">
+
+<a href="index.js.html">index.js</a>
+
+</li>
+
+<li class="">
+
+<a href="rendering-utils.js.html">rendering-utils.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">node_modules</span>
+
+<ul class="directory">
+
+<li class="">
+
+
+<span class="dirname">ampersand-collection</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../node_modules/ampersand-collection/ampersand-collection.js.html">ampersand-collection.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">ampersand-model</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../node_modules/ampersand-model/ampersand-model.js.html">ampersand-model.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">files-collection</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../node_modules/files-collection/index.js.html">index.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">resources</span>
+
+<ul class="directory">
+
+<li class="">
+
+
+<span class="dirname">themes</span>
+
+<ul class="directory">
+
+<li class="">
+
+
+<span class="dirname">default</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../resources/themes/default/file.jst.html">file.jst</a>
+
+</li>
+
+<li class="">
+
+<a href="../resources/themes/default/navigation-item.jst.html">navigation-item.jst</a>
+
+</li>
+
+<li class="">
+
+<a href="../resources/themes/default/navigation.jst.html">navigation.jst</a>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">assets</span>
+
+<ul class="directory">
+
+<li class="">
+
+
+<span class="dirname">scripts</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../resources/themes/default/assets/scripts/scripts.src.js.html">scripts.src.js</a>
+
+</li>
+
+<li class="">
+
+<a href="../resources/themes/default/assets/scripts/search.src.js.html">search.src.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">styles</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../resources/themes/default/assets/styles/styles.css.html">styles.css</a>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">tasks</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../tasks/gtfd.js.html">gtfd.js</a>
+
+</li>
+
+</ul>
+
+</li>
+</ul>
+</nav>
+
+
+  <div class="container content">
+    <div>
+      
+
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"></div>
+        <div class="col-md-12 col-lg-6"><pre><code class="js"><span class="hljs-pi">'use strict'</span>;
+<span class="hljs-comment">/* jshint node: true */</span>
+<span class="hljs-keyword">var</span> Model                   = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ampersand-model'</span>);
+<span class="hljs-keyword">var</span> Collection              = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ampersand-collection'</span>);
+<span class="hljs-comment">/*
+var marked                  = require('marked');
+var hljs                    = require('highlight.js');
+
+
+hljs.configure({
+  tabReplace: '  '
+});
+
+marked.setOptions({
+  smartypants: true,
+
+  highlight: function(code, lang) {
+    if (!hljs.getLanguage(lang)) {
+      return code;
+    }
+
+    return hljs.highlight(lang, code).value;
+  }
+});
+*/</span>
+
+<span class="hljs-keyword">var</span> BlockModel = Model.extend({
+  props: {
+    start:          <span class="hljs-string">'number'</span>,
+    codeStart:      <span class="hljs-string">'number'</span>,
+    end:            <span class="hljs-string">'number'</span>,
+    documentation:  <span class="hljs-string">'string'</span>,
+    code:           <span class="hljs-string">'string'</span>
+  },
+
+  derived: {
+    documentationHTML: {
+      deps: [<span class="hljs-string">'documentation'</span>],
+      fn: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> marked(<span class="hljs-keyword">this</span>.documentation);
+      }
+    },
+
+    codeHTML: {
+      deps: [<span class="hljs-string">'code'</span>],
+      fn: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+        <span class="hljs-keyword">return</span> hljs.highlight(<span class="hljs-keyword">this</span>.collection.parent.lang, <span class="hljs-keyword">this</span>.code).value;
+      }
+    }
+  }
+});
+
+
+<span class="hljs-keyword">var</span> BlocksCollection = Collection.extend({
+  model: BlockModel
+});
+
+<span class="hljs-built_in">module</span>.exports = BlocksCollection;
+</code></pre></div>
+      </div>
+      
+    </div>
+  </div>
+
+  <footer>
+
+  </footer>
+
+  <script src="../assets/scripts/scripts.js"></script>
+  <script>
+  var config = {"files":["Gruntfile.js","README.md","lib/blocks-collection.js","lib/index.js","lib/rendering-utils.js","node_modules/ampersand-collection/ampersand-collection.js","node_modules/ampersand-model/ampersand-model.js","node_modules/files-collection/index.js","resources/themes/default/assets/scripts/scripts.src.js","resources/themes/default/assets/scripts/search.src.js","resources/themes/default/assets/styles/styles.css","resources/themes/default/file.jst","resources/themes/default/navigation-item.jst","resources/themes/default/navigation.jst","tasks/gtfd.js"],"active":"lib/blocks-collection.js"};
+  config.files = (config.files || []).map(function (filepath) {
+    return { filepath: filepath };
+  });
+  config.el = document.body;
+  new gtfd(config);
+  </script>
+</body>
+</html>

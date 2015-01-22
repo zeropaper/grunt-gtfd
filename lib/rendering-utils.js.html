@@ -1,0 +1,350 @@
+
+<html>
+<head>
+  <title>rendering-utils.js</title>
+  <link type="text/css" rel="stylesheet" href="../assets/styles/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="row">
+      <h3><a href="../index.html">Index</a></h3>
+      <ul class="breadcrumb"><li>lib</li></ul>
+    </div>
+    <h1>rendering-utils.js</h1>
+  </header>
+
+  <nav class="docs-nav">
+<div class="search"></div>
+<div class="toggle">Files</div>
+<ul class="directory root">
+<li class="">
+
+<a href="../Gruntfile.js.html">Gruntfile.js</a>
+
+</li>
+
+<li class="">
+
+</li>
+
+<li class="trail">
+
+
+<span class="dirname">lib</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="blocks-collection.js.html">blocks-collection.js</a>
+
+</li>
+
+<li class="">
+
+<a href="index.js.html">index.js</a>
+
+</li>
+
+<li class="active">
+
+<a href="rendering-utils.js.html">rendering-utils.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">node_modules</span>
+
+<ul class="directory">
+
+<li class="">
+
+
+<span class="dirname">ampersand-collection</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../node_modules/ampersand-collection/ampersand-collection.js.html">ampersand-collection.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">ampersand-model</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../node_modules/ampersand-model/ampersand-model.js.html">ampersand-model.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">files-collection</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../node_modules/files-collection/index.js.html">index.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">resources</span>
+
+<ul class="directory">
+
+<li class="">
+
+
+<span class="dirname">themes</span>
+
+<ul class="directory">
+
+<li class="">
+
+
+<span class="dirname">default</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../resources/themes/default/file.jst.html">file.jst</a>
+
+</li>
+
+<li class="">
+
+<a href="../resources/themes/default/navigation-item.jst.html">navigation-item.jst</a>
+
+</li>
+
+<li class="">
+
+<a href="../resources/themes/default/navigation.jst.html">navigation.jst</a>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">assets</span>
+
+<ul class="directory">
+
+<li class="">
+
+
+<span class="dirname">scripts</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../resources/themes/default/assets/scripts/scripts.src.js.html">scripts.src.js</a>
+
+</li>
+
+<li class="">
+
+<a href="../resources/themes/default/assets/scripts/search.src.js.html">search.src.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">styles</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../resources/themes/default/assets/styles/styles.css.html">styles.css</a>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">tasks</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../tasks/gtfd.js.html">gtfd.js</a>
+
+</li>
+
+</ul>
+
+</li>
+</ul>
+</nav>
+
+
+  <div class="container content">
+    <div>
+      
+
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"></div>
+        <div class="col-md-12 col-lg-6"><pre><code class="js"><span class="hljs-pi">'use strict'</span>;
+<span class="hljs-comment">/* jshint node: true */</span>
+
+<span class="hljs-keyword">var</span> _ = <span class="hljs-built_in">require</span>(<span class="hljs-string">'underscore'</span>);
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">repeatStr</span><span class="hljs-params">(count, str)</span></span>{
+  <span class="hljs-keyword">var</span> str = str || <span class="hljs-string">'..'</span>;
+  <span class="hljs-keyword">var</span> arr = [];
+  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">var</span> c = <span class="hljs-number">0</span>; c &lt;= count; c++) {
+    arr.push(str);
+  }
+  <span class="hljs-keyword">return</span> arr;
+}
+
+
+
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">breadcrumb</span><span class="hljs-params">(model)</span> </span>{
+  <span class="hljs-keyword">var</span> pieces = [];
+  <span class="hljs-keyword">var</span> used = [];
+  <span class="hljs-keyword">var</span> parts = model.dirname.split(<span class="hljs-string">'/'</span>);
+  <span class="hljs-keyword">var</span> length = parts.length;
+  <span class="hljs-keyword">var</span> part;
+  <span class="hljs-keyword">while</span> (part = parts.shift()) {
+    <span class="hljs-keyword">var</span> partPath = repeatStr(parts.length - <span class="hljs-number">1</span>).join(<span class="hljs-string">'/'</span>);
+    used.push(part);
+    <span class="hljs-keyword">if</span> (model.collection.get(used.join(<span class="hljs-string">'/'</span>) + <span class="hljs-string">'/index.html'</span>)) {
+      pieces.push(<span class="hljs-string">'&lt;li&gt;&lt;a href="'</span> + partPath + <span class="hljs-string">'/index.html"&gt;'</span> + part + <span class="hljs-string">'&lt;/a&gt;&lt;/li&gt;'</span>);
+    }
+    <span class="hljs-keyword">else</span> {
+      pieces.push(<span class="hljs-string">'&lt;li&gt;'</span> + part + <span class="hljs-string">'&lt;/li&gt;'</span>);
+    }
+  }
+  <span class="hljs-keyword">return</span>  <span class="hljs-string">'&lt;ul class="breadcrumb"&gt;'</span> + pieces.join(<span class="hljs-string">''</span>) + <span class="hljs-string">'&lt;/ul&gt;'</span>;
+}
+
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">navigation</span><span class="hljs-params">(model)</span> </span>{
+  <span class="hljs-keyword">var</span> fileTemplate = _.template([
+    <span class="hljs-string">'&lt;% if (model.isDir) { %&gt;'</span>,
+      <span class="hljs-string">'&lt;% var index = model.files.get("index");'</span>,
+      <span class="hljs-string">'if (!index) { %&gt;'</span>,
+        <span class="hljs-string">'&lt;span class="dirname"&gt;&lt;%= model.basename %&gt;&lt;/span&gt;'</span>,
+      <span class="hljs-string">'&lt;% } else { %&gt;'</span>,
+        <span class="hljs-string">'&lt;a href="&lt;%= model.fileurl %&gt;.html"&gt;&lt;%= model.basename %&gt;&lt;/a&gt;'</span>,
+      <span class="hljs-string">'&lt;% } %&gt;'</span>,
+
+      <span class="hljs-string">'&lt;ul class="directory"&gt;'</span>,
+      <span class="hljs-string">'&lt;% model.files.forEach(function (child) { %&gt;'</span>,
+        <span class="hljs-string">'&lt;li class="&lt;%= (child.active ? "active" : (child.trail ? "trail" : "")) %&gt;"&gt;'</span>,
+          <span class="hljs-string">'&lt;%= fileTemplate({ model: child, fileTemplate: fileTemplate }) %&gt;'</span>,
+        <span class="hljs-string">'&lt;/li&gt;'</span>,
+      <span class="hljs-string">'&lt;% }) %&gt;'</span>,
+      <span class="hljs-string">'&lt;/ul&gt;'</span>,
+    <span class="hljs-string">'&lt;% } else if (["README.md", "index"].indexOf(model.filepath) &gt; -1) { } else { %&gt;'</span>,
+      <span class="hljs-string">'&lt;a href="&lt;%= model.fileurl %&gt;.html"&gt;&lt;%= model.basename %&gt;&lt;/a&gt;'</span>,
+    <span class="hljs-string">'&lt;% } %&gt;'</span>
+  ].join(<span class="hljs-string">'\n'</span>));
+
+  <span class="hljs-keyword">return</span> _.template([
+    <span class="hljs-string">'&lt;nav class="docs-nav"&gt;'</span>,
+      <span class="hljs-string">'&lt;div class="search"&gt;&lt;/div&gt;'</span>,
+      <span class="hljs-string">'&lt;div class="toggle"&gt;Files&lt;/div&gt;'</span>,
+      <span class="hljs-string">'&lt;ul class="directory root"&gt;&lt;% collection.get(".").files.forEach(function (child) { %&gt;'</span>,
+        <span class="hljs-string">'&lt;li class="&lt;%= (child.active ? "active" : (child.trail ? "trail" : "")) %&gt;"&gt;'</span>,
+          <span class="hljs-string">'&lt;%= fileTemplate({ model: child, fileTemplate: fileTemplate }) %&gt;'</span>,
+        <span class="hljs-string">'&lt;/li&gt;'</span>,
+      <span class="hljs-string">'&lt;% }) %&gt;&lt;/ul&gt;'</span>,
+    <span class="hljs-string">'&lt;/nav&gt;'</span>
+  ].join(<span class="hljs-string">'\n'</span>))({
+    fileTemplate: fileTemplate,
+    collection: model.collection
+  });
+}
+
+<span class="hljs-built_in">module</span>.exports = {
+  navigation: navigation,
+  breadcrumb: breadcrumb
+};
+</code></pre></div>
+      </div>
+      
+    </div>
+  </div>
+
+  <footer>
+
+  </footer>
+
+  <script src="../assets/scripts/scripts.js"></script>
+  <script>
+  var config = {"files":["Gruntfile.js","README.md","lib/blocks-collection.js","lib/index.js","lib/rendering-utils.js","node_modules/ampersand-collection/ampersand-collection.js","node_modules/ampersand-model/ampersand-model.js","node_modules/files-collection/index.js","resources/themes/default/assets/scripts/scripts.src.js","resources/themes/default/assets/scripts/search.src.js","resources/themes/default/assets/styles/styles.css","resources/themes/default/file.jst","resources/themes/default/navigation-item.jst","resources/themes/default/navigation.jst","tasks/gtfd.js"],"active":"lib/rendering-utils.js"};
+  config.files = (config.files || []).map(function (filepath) {
+    return { filepath: filepath };
+  });
+  config.el = document.body;
+  new gtfd(config);
+  </script>
+</body>
+</html>

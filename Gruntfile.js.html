@@ -1,0 +1,417 @@
+
+<html>
+<head>
+  <title>Gruntfile.js</title>
+  <link type="text/css" rel="stylesheet" href="assets/styles/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="row">
+      <h3><a href="index.html">Index</a></h3>
+      <ul class="breadcrumb"><li>.</li></ul>
+    </div>
+    <h1>Gruntfile.js</h1>
+  </header>
+
+  <nav class="docs-nav">
+<div class="search"></div>
+<div class="toggle">Files</div>
+<ul class="directory root">
+<li class="active">
+
+<a href="Gruntfile.js.html">Gruntfile.js</a>
+
+</li>
+
+<li class="">
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">lib</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="lib/blocks-collection.js.html">blocks-collection.js</a>
+
+</li>
+
+<li class="">
+
+<a href="lib/index.js.html">index.js</a>
+
+</li>
+
+<li class="">
+
+<a href="lib/rendering-utils.js.html">rendering-utils.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">node_modules</span>
+
+<ul class="directory">
+
+<li class="">
+
+
+<span class="dirname">ampersand-collection</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="node_modules/ampersand-collection/ampersand-collection.js.html">ampersand-collection.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">ampersand-model</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="node_modules/ampersand-model/ampersand-model.js.html">ampersand-model.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">files-collection</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="node_modules/files-collection/index.js.html">index.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">resources</span>
+
+<ul class="directory">
+
+<li class="">
+
+
+<span class="dirname">themes</span>
+
+<ul class="directory">
+
+<li class="">
+
+
+<span class="dirname">default</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="resources/themes/default/file.jst.html">file.jst</a>
+
+</li>
+
+<li class="">
+
+<a href="resources/themes/default/navigation-item.jst.html">navigation-item.jst</a>
+
+</li>
+
+<li class="">
+
+<a href="resources/themes/default/navigation.jst.html">navigation.jst</a>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">assets</span>
+
+<ul class="directory">
+
+<li class="">
+
+
+<span class="dirname">scripts</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="resources/themes/default/assets/scripts/scripts.src.js.html">scripts.src.js</a>
+
+</li>
+
+<li class="">
+
+<a href="resources/themes/default/assets/scripts/search.src.js.html">search.src.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">styles</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="resources/themes/default/assets/styles/styles.css.html">styles.css</a>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">tasks</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="tasks/gtfd.js.html">gtfd.js</a>
+
+</li>
+
+</ul>
+
+</li>
+</ul>
+</nav>
+
+
+  <div class="container content">
+    <div>
+      
+
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"><h1 id="gruntfile-js">Gruntfile.js</h1>
+<p> This file is used by <a href="http://gruntjs.com">grunt</a> to perform tasks on the
+ projects.</p>
+</div>
+        <div class="col-md-12 col-lg-6"><pre><code class="js"><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(grunt)</span> </span>{
+  <span class="hljs-built_in">require</span>(<span class="hljs-string">'load-grunt-tasks'</span>)(grunt);
+  grunt.task.loadTasks(<span class="hljs-string">'./tasks'</span>);
+
+  <span class="hljs-keyword">var</span> sources = [
+    <span class="hljs-string">'node_modules/ampersand-{model,collection}/ampersand-{model,collection}.js'</span>,
+    <span class="hljs-string">'node_modules/files-collection/{index,node}.js'</span>,
+    <span class="hljs-string">'README.md'</span>, <span class="hljs-comment">// will become `index.html`</span>
+    <span class="hljs-string">'Gruntfile.js'</span>,
+    <span class="hljs-string">'lib/**/*.js'</span>,
+    <span class="hljs-string">'resources/themes/default/**/*.{jst,src.js,css}'</span>,
+    <span class="hljs-string">'tasks/**/*.js'</span>
+  ];
+
+  grunt.initConfig({
+    docsDestination: <span class="hljs-string">'docs'</span>,
+</code></pre></div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"><h2 id="gtfd-task">gtfd task</h2>
+<p> Generates The Fine Documentation using <a href="http://github.com/zeropaper/grunt-gtfd">grunt-gtfd</a>
+ (this project).</p>
+</div>
+        <div class="col-md-12 col-lg-6"><pre><code class="js">    gtfd: {
+      project: {
+        files: [
+          {
+            src: sources,
+            dest: <span class="hljs-string">'&lt;%= docsDestination %&gt;'</span>
+          }
+        ]
+      },
+      example: {
+        files: [
+          {
+            cwd: <span class="hljs-string">'resources/test'</span>,
+            src: [<span class="hljs-string">'**/*'</span>],
+            dest: <span class="hljs-string">'&lt;%= docsDestination %&gt;/example'</span>
+          }
+        ]
+      }
+    },
+</code></pre></div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"><h2 id="mochacli-task-configuration">mochacli task configuration</h2>
+<p> Is used to run the test <a href="http://mochajs.org">mocha</a> using grunt as if they were runned
+ using the CLI of mocha.</p>
+</div>
+        <div class="col-md-12 col-lg-6"><pre><code class="js">    mochacli: {
+      options: {
+        <span class="hljs-built_in">require</span>: [<span class="hljs-string">'expect.js'</span>],
+        reporter: <span class="hljs-string">'spec'</span>,
+        bail: <span class="hljs-literal">true</span>
+      },
+      project: [<span class="hljs-string">'test/*Spec.js'</span>]
+    },
+</code></pre></div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"><h2 id="clean-task-configuration">clean task configuration</h2>
+<p> Remove files and directories before builds</p>
+</div>
+        <div class="col-md-12 col-lg-6"><pre><code class="js">    clean: [<span class="hljs-string">'docs'</span>],
+</code></pre></div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"><h2 id="watch-task-configuration">watch task configuration</h2>
+<p> Watches some project files and performs tasks when they change.</p>
+</div>
+        <div class="col-md-12 col-lg-6"><pre><code class="js">    watch: {
+      options: {
+        livereload: <span class="hljs-literal">false</span>,
+      },
+
+      project: {
+        files: sources,
+        tasks: [<span class="hljs-string">'gtfd:project'</span>, <span class="hljs-string">'mochacli'</span>]
+      },
+
+      test: {
+        files: [<span class="hljs-string">'test/**/*'</span>],
+        tasks: [<span class="hljs-string">'mochacli'</span>]
+      },
+
+      docs: {
+        options: {
+          livereload: <span class="hljs-number">8281</span>
+        },
+        files: [<span class="hljs-string">'&lt;%= docsDestination %&gt;/**/*'</span>],
+        tasks: []
+      }
+    },
+</code></pre></div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"><h2 id="connect-task-configuration">connect task configuration</h2>
+<p> Serves the documentation with a small static files server and
+ injects a snippet (for livereload) in served HTML files.</p>
+</div>
+        <div class="col-md-12 col-lg-6"><pre><code class="js">    connect: {
+      server: {
+        options: {
+          port: <span class="hljs-number">8280</span>,
+          hostname: <span class="hljs-string">'0.0.0.0'</span>,
+          livereload: <span class="hljs-number">8281</span>,
+          base: <span class="hljs-string">'&lt;%= docsDestination %&gt;'</span>
+        }
+      }
+    }
+  });
+</code></pre></div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"><h2 id="build-task">build task</h2>
+<p> Is the <a href="#default-task">grunt default task</a> (can be fired using <code>grunt</code> only).
+ Is aimed to run the <em>clean</em>, <em>gtfd</em> and <em>mochacli</em> tasks in order to build
+ the project.</p>
+</div>
+        <div class="col-md-12 col-lg-6"><pre><code class="js">  grunt.registerTask(<span class="hljs-string">'build'</span>, [<span class="hljs-string">'clean'</span>, <span class="hljs-string">'gtfd'</span>, <span class="hljs-string">'mochacli'</span>]);
+</code></pre></div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"><h2 id="dev-server-task">dev-server task</h2>
+<p> Starts a <a href="#connect-task-configuration">connect</a> (with livereloading)
+ and <a href="#watch-task-configuration">watches</a> for changes</p>
+</div>
+        <div class="col-md-12 col-lg-6"><pre><code class="js">  grunt.registerTask(<span class="hljs-string">'dev-server'</span>, [<span class="hljs-string">'build'</span>, <span class="hljs-string">'connect'</span>, <span class="hljs-string">'watch'</span>]);
+</code></pre></div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"><h2 id="default-task">default task</h2>
+<p> Is an alias for the <a href="build-task">build</a></p>
+</div>
+        <div class="col-md-12 col-lg-6"><pre><code class="js">  grunt.registerTask(<span class="hljs-string">'default'</span>, [<span class="hljs-string">'build'</span>]);
+};
+</code></pre></div>
+      </div>
+      
+    </div>
+  </div>
+
+  <footer>
+
+  </footer>
+
+  <script src="assets/scripts/scripts.js"></script>
+  <script>
+  var config = {"files":["Gruntfile.js","README.md","lib/blocks-collection.js","lib/index.js","lib/rendering-utils.js","node_modules/ampersand-collection/ampersand-collection.js","node_modules/ampersand-model/ampersand-model.js","node_modules/files-collection/index.js","resources/themes/default/assets/scripts/scripts.src.js","resources/themes/default/assets/scripts/search.src.js","resources/themes/default/assets/styles/styles.css","resources/themes/default/file.jst","resources/themes/default/navigation-item.jst","resources/themes/default/navigation.jst","tasks/gtfd.js"],"active":"Gruntfile.js"};
+  config.files = (config.files || []).map(function (filepath) {
+    return { filepath: filepath };
+  });
+  config.el = document.body;
+  new gtfd(config);
+  </script>
+</body>
+</html>

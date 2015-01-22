@@ -1,0 +1,144 @@
+
+<html>
+<head>
+  <title>example.js</title>
+  <link type="text/css" rel="stylesheet" href="assets/styles/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="row">
+      <h3><a href="index.html">Index</a></h3>
+      <ul class="breadcrumb"><li>.</li></ul>
+    </div>
+    <h1>example.js</h1>
+  </header>
+
+  <nav class="docs-nav">
+<div class="search"></div>
+<div class="toggle">Files</div>
+<ul class="directory root">
+<li class="">
+
+</li>
+
+<li class="active">
+
+<a href="example.js.html">example.js</a>
+
+</li>
+
+<li class="">
+
+<a href="example.less.html">example.less</a>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">dir</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="dir/example.html.html">example</a>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">sub</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="dir/sub/README.md.html">README.md</a>
+
+</li>
+
+<li class="">
+
+<a href="dir/sub/example.md.html">example.md</a>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+</ul>
+</nav>
+
+
+  <div class="container content">
+    <div>
+      
+
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"></div>
+        <div class="col-md-12 col-lg-6"><pre><code class="js"><span class="hljs-comment">/**
+ * block comment, not documentation block
+ */</span>
+
+<span class="hljs-comment">/*
+block comment, not documentation block
+*/</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{ <span class="hljs-comment">// not documentation block</span>
+  <span class="hljs-keyword">var</span> self = <span class="hljs-keyword">this</span>;
+}
+</code></pre></div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"><p> first documentation comes after first code and has only 1 line</p>
+</div>
+        <div class="col-md-12 col-lg-6"><pre><code class="js"><span class="hljs-keyword">var</span> example = <span class="hljs-string">'string'</span>;
+</code></pre></div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"><p> second documentation block has a code example and utilizes markdown notation</p>
+<pre><code class="lang-js"> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span><span class="hljs-params">()</span> </span>{
+   <span class="hljs-keyword">return</span> <span class="hljs-string">'bar'</span>;
+ }
+</code></pre>
+<p> and so on</p>
+<p> Should be in the same block</p>
+</div>
+        <div class="col-md-12 col-lg-6"><pre><code class="js">
+<span class="hljs-keyword">var</span> arr = [
+  <span class="hljs-string">'always'</span>, <span class="hljs-comment">// not documentation block</span>
+  <span class="hljs-string">'on'</span>,
+  <span class="hljs-string">'a'</span>,
+  <span class="hljs-string">'new'</span>,
+  <span class="hljs-string">'line'</span>
+];
+</code></pre></div>
+      </div>
+      
+    </div>
+  </div>
+
+  <footer>
+
+  </footer>
+
+  <script src="assets/scripts/scripts.js"></script>
+  <script>
+  var config = {"files":["README.md","dir/example.html","dir/sub/README.md","dir/sub/example.md","example.js","example.less"],"active":"example.js"};
+  config.files = (config.files || []).map(function (filepath) {
+    return { filepath: filepath };
+  });
+  config.el = document.body;
+  new gtfd(config);
+  </script>
+</body>
+</html>

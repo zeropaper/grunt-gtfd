@@ -1,0 +1,505 @@
+
+<html>
+<head>
+  <title>search.src.js</title>
+  <link type="text/css" rel="stylesheet" href="../../../../../assets/styles/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="row">
+      <h3><a href="../../../../../index.html">Index</a></h3>
+      <ul class="breadcrumb"><li>resources</li><li>themes</li><li>default</li><li>assets</li><li>scripts</li></ul>
+    </div>
+    <h1>search.src.js</h1>
+  </header>
+
+  <nav class="docs-nav">
+<div class="search"></div>
+<div class="toggle">Files</div>
+<ul class="directory root">
+<li class="">
+
+<a href="../../../../../Gruntfile.js.html">Gruntfile.js</a>
+
+</li>
+
+<li class="">
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">lib</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../../../../../lib/blocks-collection.js.html">blocks-collection.js</a>
+
+</li>
+
+<li class="">
+
+<a href="../../../../../lib/index.js.html">index.js</a>
+
+</li>
+
+<li class="">
+
+<a href="../../../../../lib/rendering-utils.js.html">rendering-utils.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">node_modules</span>
+
+<ul class="directory">
+
+<li class="">
+
+
+<span class="dirname">ampersand-collection</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../../../../../node_modules/ampersand-collection/ampersand-collection.js.html">ampersand-collection.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">ampersand-model</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../../../../../node_modules/ampersand-model/ampersand-model.js.html">ampersand-model.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">files-collection</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../../../../../node_modules/files-collection/index.js.html">index.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="trail">
+
+
+<span class="dirname">resources</span>
+
+<ul class="directory">
+
+<li class="trail">
+
+
+<span class="dirname">themes</span>
+
+<ul class="directory">
+
+<li class="trail">
+
+
+<span class="dirname">default</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../../file.jst.html">file.jst</a>
+
+</li>
+
+<li class="">
+
+<a href="../../navigation-item.jst.html">navigation-item.jst</a>
+
+</li>
+
+<li class="">
+
+<a href="../../navigation.jst.html">navigation.jst</a>
+
+</li>
+
+<li class="trail">
+
+
+<span class="dirname">assets</span>
+
+<ul class="directory">
+
+<li class="trail">
+
+
+<span class="dirname">scripts</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="scripts.src.js.html">scripts.src.js</a>
+
+</li>
+
+<li class="active">
+
+<a href="search.src.js.html">search.src.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">styles</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../styles/styles.css.html">styles.css</a>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">tasks</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../../../../../tasks/gtfd.js.html">gtfd.js</a>
+
+</li>
+
+</ul>
+
+</li>
+</ul>
+</nav>
+
+
+  <div class="container content">
+    <div>
+      
+
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"></div>
+        <div class="col-md-12 col-lg-6"><pre><code class="js"><span class="hljs-keyword">var</span> Model           = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ampersand-model'</span>);
+<span class="hljs-keyword">var</span> Collection      = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ampersand-collection'</span>);
+<span class="hljs-keyword">var</span> View            = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ampersand-view'</span>);
+
+<span class="hljs-keyword">var</span> SearchResults = Collection.extend({
+  comparator: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(a, b)</span> </span>{
+    <span class="hljs-keyword">return</span> a.score &lt; b.score;
+  },
+
+  model: Model.extend({
+    props: {
+      score: [<span class="hljs-string">'number'</span>, <span class="hljs-literal">false</span>, <span class="hljs-number">0</span>],
+      label: <span class="hljs-string">'string'</span>,
+      value: <span class="hljs-string">'string'</span>
+    },
+
+    session: {
+      focused: <span class="hljs-string">'boolean'</span>
+    },
+
+    derived: {
+      index: {
+        deps: [<span class="hljs-string">'collection'</span>],
+        fn: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+          <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.collection.indexOf(<span class="hljs-keyword">this</span>);
+        }
+      }
+    }
+  }),
+
+  indexPos: <span class="hljs-number">0</span>,
+
+  prev: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.length) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+
+    <span class="hljs-keyword">this</span>.indexPos = <span class="hljs-keyword">this</span>.indexPos - <span class="hljs-number">1</span>;
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.indexPos &lt; <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">this</span>.indexPos = <span class="hljs-keyword">this</span>.length - <span class="hljs-number">1</span>;
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.at(<span class="hljs-keyword">this</span>.indexPos);
+  },
+
+  next: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.length) {
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+
+    <span class="hljs-keyword">this</span>.indexPos = <span class="hljs-keyword">this</span>.indexPos + <span class="hljs-number">1</span>;
+
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.indexPos === <span class="hljs-keyword">this</span>.length) {
+      <span class="hljs-keyword">this</span>.indexPos = <span class="hljs-number">0</span>;
+    }
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.at(<span class="hljs-keyword">this</span>.indexPos);
+  },
+
+  initialize: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">this</span>.on(<span class="hljs-string">'reset'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(collection)</span> </span>{
+      collection.index = <span class="hljs-number">0</span>;
+      collection.setFocused(<span class="hljs-number">0</span>);
+    });
+  },
+
+  setFocused: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(focusedModel)</span> </span>{
+    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">isNaN</span>(focusedModel)) {
+      focusedModel = <span class="hljs-keyword">this</span>.at(focusedModel);
+    }
+
+    <span class="hljs-keyword">this</span>.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(model)</span> </span>{
+      <span class="hljs-keyword">if</span> (focusedModel.cid === model.cid) { <span class="hljs-keyword">return</span>; }
+
+      model.set({
+        focused: <span class="hljs-literal">false</span>
+      });
+    });
+
+    <span class="hljs-keyword">if</span> (focusedModel &amp;&amp; !focusedModel.focused) {
+      focusedModel.focused = <span class="hljs-literal">true</span>;
+    }
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+  }
+});
+
+
+<span class="hljs-keyword">var</span> SearchResult = View.extend({
+  autoRender: <span class="hljs-literal">true</span>,
+  template: <span class="hljs-string">'&lt;div&gt;&lt;div class="score"&gt;&lt;/div&gt;&lt;a class="label"&gt;&lt;/a&gt;&lt;/div&gt;'</span>,
+
+  bindings: {
+    <span class="hljs-string">'model.label'</span>: {
+      type: <span class="hljs-string">'text'</span>,
+      selector: <span class="hljs-string">'.label'</span>
+    },
+    <span class="hljs-string">'model.value'</span>: {
+      type: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(el, value<span class="hljs-comment">/*, previousValue*/</span>)</span> </span>{
+        el.setAttribute(<span class="hljs-string">'href'</span>, value + <span class="hljs-string">'.html'</span>);
+      },
+      selector: <span class="hljs-string">'.label'</span>
+    },
+    <span class="hljs-string">'model.score'</span>: {
+      type: <span class="hljs-string">'text'</span>,
+      selector: <span class="hljs-string">'.score'</span>
+    },
+    <span class="hljs-string">'model.focused'</span>: {
+      type: <span class="hljs-string">'booleanClass'</span>,
+      name: <span class="hljs-string">'focused'</span>
+    }
+  }
+});
+
+
+<span class="hljs-built_in">module</span>.exports = View.extend({
+  autoRender: <span class="hljs-literal">true</span>,
+
+  results: <span class="hljs-literal">null</span>,
+
+  facets: <span class="hljs-literal">null</span>,
+
+  template: [
+    <span class="hljs-string">'&lt;div class="search"&gt;'</span>,
+      <span class="hljs-string">'&lt;div class="options"&gt;&lt;/div&gt;'</span>,
+      <span class="hljs-string">'&lt;div&gt;'</span>,
+        <span class="hljs-string">'&lt;input class="form-control" placeholder="Search" type="search" /&gt;'</span>,
+      <span class="hljs-string">'&lt;/div&gt;'</span>,
+      <span class="hljs-string">'&lt;div class="results"&gt;'</span>,
+      <span class="hljs-string">'&lt;/div&gt;'</span>,
+    <span class="hljs-string">'&lt;/div&gt;'</span>
+  ].join(<span class="hljs-string">'\n'</span>),
+
+  events: {
+    <span class="hljs-string">'keyup input'</span>: <span class="hljs-string">'searchKeyup'</span>,
+    <span class="hljs-string">'keydown input'</span>: <span class="hljs-string">'searchKeydown'</span>
+  },
+
+  initialize: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">this</span>.results = <span class="hljs-keyword">new</span> SearchResults();
+  },
+
+  searchKeydown: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+    <span class="hljs-keyword">if</span> (evt.keyCode === <span class="hljs-number">13</span>) {
+      <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.results.length) {
+        <span class="hljs-keyword">var</span> href = <span class="hljs-keyword">this</span>.results.at(<span class="hljs-keyword">this</span>.results.indexPos).value;
+        <span class="hljs-built_in">console</span>.info(<span class="hljs-string">'go to'</span>, href);
+        location.href = href;
+      }
+      evt.preventDefault();
+    }
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (evt.keyCode === <span class="hljs-number">40</span>) {
+      <span class="hljs-keyword">this</span>.results.setFocused(<span class="hljs-keyword">this</span>.results.next());
+      evt.preventDefault();
+    }
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (evt.keyCode === <span class="hljs-number">38</span>) {
+      <span class="hljs-keyword">this</span>.results.setFocused(<span class="hljs-keyword">this</span>.results.prev());
+      evt.preventDefault();
+    }
+  },
+
+  searchKeyup: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+    <span class="hljs-keyword">if</span> ([<span class="hljs-number">13</span>, <span class="hljs-number">40</span>, <span class="hljs-number">38</span>].indexOf(evt.keyCode) &lt; <span class="hljs-number">0</span>) {
+      <span class="hljs-keyword">this</span>.search();
+    }
+  },
+
+  searchInputExp: <span class="hljs-regexp">/([^\s]+:[\s]*[^\s]+|[^\s]+)/g</span>,
+
+  search: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.inputEl.value === <span class="hljs-keyword">this</span>.value) {
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    }
+
+    <span class="hljs-keyword">this</span>.value = <span class="hljs-keyword">this</span>.inputEl.value;
+    <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>.value) {
+      <span class="hljs-keyword">this</span>.results.reset([]);
+      <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    }
+
+    <span class="hljs-keyword">var</span> searches = (<span class="hljs-keyword">this</span>.value.match(<span class="hljs-keyword">this</span>.searchInputExp) || []).map(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(search)</span> </span>{
+      search = search.split(<span class="hljs-string">': '</span>);
+
+      <span class="hljs-keyword">return</span> {
+        type: search.length &gt; <span class="hljs-number">1</span> ? search[<span class="hljs-number">0</span>] : <span class="hljs-string">'exp'</span>,
+        target: <span class="hljs-string">'filepath'</span>,
+        value: search.length === <span class="hljs-number">1</span> ? search[<span class="hljs-number">0</span>] : search.slice(<span class="hljs-number">1</span>).join(<span class="hljs-string">': '</span>)
+      };
+    });
+
+    <span class="hljs-keyword">var</span> found = [];
+    <span class="hljs-keyword">this</span>.collection.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(model)</span> </span>{
+      <span class="hljs-keyword">var</span> score = <span class="hljs-number">0</span>;
+
+      searches.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(search)</span> </span>{
+        <span class="hljs-keyword">switch</span> (search.type) {
+          <span class="hljs-keyword">case</span> <span class="hljs-string">'exp'</span>:
+            score = score + (model[search.target].split(search.value).length - <span class="hljs-number">1</span>);
+            <span class="hljs-keyword">break</span>;
+
+          <span class="hljs-keyword">case</span> <span class="hljs-string">'tag'</span>:
+            score = score + model.tags.filter(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(tag)</span> </span>{
+              <span class="hljs-keyword">return</span> tag.name === search.value;
+            }).length;
+            <span class="hljs-keyword">break</span>;
+        }
+      });
+
+      <span class="hljs-keyword">if</span> (score) {
+        found.push({
+          score: score,
+          label: model.filepath,
+          value: model.fileurl
+        });
+      }
+    });
+
+    <span class="hljs-keyword">this</span>.results.reset(found).sort();
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+  },
+
+  render: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
+    <span class="hljs-keyword">this</span>.renderWithTemplate();
+
+    <span class="hljs-keyword">this</span>.cacheElements({
+      optionsEl: <span class="hljs-string">'.options'</span>,
+      resultsEl: <span class="hljs-string">'.results'</span>,
+      inputEl: <span class="hljs-string">'input'</span>
+    });
+
+    <span class="hljs-keyword">this</span>.renderCollection(<span class="hljs-keyword">this</span>.results, SearchResult, <span class="hljs-keyword">this</span>.resultsEl);
+
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+  }
+});
+</code></pre></div>
+      </div>
+      
+    </div>
+  </div>
+
+  <footer>
+
+  </footer>
+
+  <script src="../../../../../assets/scripts/scripts.js"></script>
+  <script>
+  var config = {"files":["Gruntfile.js","README.md","lib/blocks-collection.js","lib/index.js","lib/rendering-utils.js","node_modules/ampersand-collection/ampersand-collection.js","node_modules/ampersand-model/ampersand-model.js","node_modules/files-collection/index.js","resources/themes/default/assets/scripts/scripts.src.js","resources/themes/default/assets/scripts/search.src.js","resources/themes/default/assets/styles/styles.css","resources/themes/default/file.jst","resources/themes/default/navigation-item.jst","resources/themes/default/navigation.jst","tasks/gtfd.js"],"active":"resources/themes/default/assets/scripts/search.src.js"};
+  config.files = (config.files || []).map(function (filepath) {
+    return { filepath: filepath };
+  });
+  config.el = document.body;
+  new gtfd(config);
+  </script>
+</body>
+</html>

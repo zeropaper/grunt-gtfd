@@ -1,0 +1,338 @@
+
+<html>
+<head>
+  <title>scripts.src.js</title>
+  <link type="text/css" rel="stylesheet" href="../../../../../assets/styles/styles.css" />
+</head>
+<body>
+  <header>
+    <div class="row">
+      <h3><a href="../../../../../index.html">Index</a></h3>
+      <ul class="breadcrumb"><li>resources</li><li>themes</li><li>default</li><li>assets</li><li>scripts</li></ul>
+    </div>
+    <h1>scripts.src.js</h1>
+  </header>
+
+  <nav class="docs-nav">
+<div class="search"></div>
+<div class="toggle">Files</div>
+<ul class="directory root">
+<li class="">
+
+<a href="../../../../../Gruntfile.js.html">Gruntfile.js</a>
+
+</li>
+
+<li class="">
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">lib</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../../../../../lib/blocks-collection.js.html">blocks-collection.js</a>
+
+</li>
+
+<li class="">
+
+<a href="../../../../../lib/index.js.html">index.js</a>
+
+</li>
+
+<li class="">
+
+<a href="../../../../../lib/rendering-utils.js.html">rendering-utils.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">node_modules</span>
+
+<ul class="directory">
+
+<li class="">
+
+
+<span class="dirname">ampersand-collection</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../../../../../node_modules/ampersand-collection/ampersand-collection.js.html">ampersand-collection.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">ampersand-model</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../../../../../node_modules/ampersand-model/ampersand-model.js.html">ampersand-model.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">files-collection</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../../../../../node_modules/files-collection/index.js.html">index.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="trail">
+
+
+<span class="dirname">resources</span>
+
+<ul class="directory">
+
+<li class="trail">
+
+
+<span class="dirname">themes</span>
+
+<ul class="directory">
+
+<li class="trail">
+
+
+<span class="dirname">default</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../../file.jst.html">file.jst</a>
+
+</li>
+
+<li class="">
+
+<a href="../../navigation-item.jst.html">navigation-item.jst</a>
+
+</li>
+
+<li class="">
+
+<a href="../../navigation.jst.html">navigation.jst</a>
+
+</li>
+
+<li class="trail">
+
+
+<span class="dirname">assets</span>
+
+<ul class="directory">
+
+<li class="trail">
+
+
+<span class="dirname">scripts</span>
+
+<ul class="directory">
+
+<li class="active">
+
+<a href="scripts.src.js.html">scripts.src.js</a>
+
+</li>
+
+<li class="">
+
+<a href="search.src.js.html">search.src.js</a>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">styles</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../styles/styles.css.html">styles.css</a>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+</ul>
+
+</li>
+
+<li class="">
+
+
+<span class="dirname">tasks</span>
+
+<ul class="directory">
+
+<li class="">
+
+<a href="../../../../../tasks/gtfd.js.html">gtfd.js</a>
+
+</li>
+
+</ul>
+
+</li>
+</ul>
+</nav>
+
+
+  <div class="container content">
+    <div>
+      
+
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"><h1 id="client-scripts">Client scripts</h1>
+<p> compile using browserify:</p>
+<pre><code class="lang-js"> browserify -s gtfd scripts.src.js -o scripts.js
+</code></pre>
+</div>
+        <div class="col-md-12 col-lg-6"><pre><code class="js">
+<span class="hljs-comment">/* jshint browser: true, node: true */</span>
+<span class="hljs-pi">'use strict'</span>;
+<span class="hljs-keyword">var</span> FilesCollection = <span class="hljs-built_in">require</span>(<span class="hljs-string">'files-collection'</span>);
+<span class="hljs-keyword">var</span> View            = <span class="hljs-built_in">require</span>(<span class="hljs-string">'ampersand-view'</span>);
+<span class="hljs-keyword">var</span> DocsSearchView  = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./search.src'</span>);
+
+
+</code></pre></div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"><h2 id="docsnavview">DocsNavView</h2>
+</div>
+        <div class="col-md-12 col-lg-6"><pre><code class="js"><span class="hljs-keyword">var</span> DocsNavView = View.extend({
+  events: {
+    <span class="hljs-string">'click li &gt; span'</span>: <span class="hljs-string">'openDirectory'</span>
+  },
+
+  openDirectory: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(evt)</span> </span>{
+    <span class="hljs-keyword">var</span> listEl = evt.delegateTarget.parentNode;
+    <span class="hljs-keyword">var</span> has = listEl.className.indexOf(<span class="hljs-string">'open'</span>) &gt; -<span class="hljs-number">1</span>;
+    <span class="hljs-keyword">if</span> (has) {
+      listEl.className = listEl.className.replace(<span class="hljs-string">'open'</span>, <span class="hljs-string">''</span>);
+    }
+    <span class="hljs-keyword">else</span> {
+      listEl.className = listEl.className + <span class="hljs-string">' open'</span>;
+    }
+  },
+
+  initialize: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(options)</span> </span>{
+    options = options || {};
+    <span class="hljs-keyword">var</span> searchEl = <span class="hljs-keyword">this</span>.query(<span class="hljs-string">'.search'</span>);
+    <span class="hljs-keyword">if</span> (searchEl) {
+      <span class="hljs-keyword">this</span>.searchView = <span class="hljs-keyword">new</span> DocsSearchView({
+        collection: <span class="hljs-keyword">this</span>.collection,
+        el: searchEl
+      });
+      <span class="hljs-keyword">this</span>.registerSubview(<span class="hljs-keyword">this</span>.searchView);
+    }
+  }
+});
+
+</code></pre></div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12 col-lg-6"><h2 id="docsview">DocsView</h2>
+</div>
+        <div class="col-md-12 col-lg-6"><pre><code class="js"><span class="hljs-built_in">module</span>.exports = View.extend({
+  initialize: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(options)</span> </span>{
+    options = options || {};
+    <span class="hljs-keyword">var</span> docsEl = <span class="hljs-keyword">this</span>.query(<span class="hljs-string">'nav.docs-nav'</span>);
+    <span class="hljs-keyword">if</span> (docsEl) {
+      <span class="hljs-keyword">this</span>.docsView = <span class="hljs-keyword">new</span> DocsNavView({
+        collection: <span class="hljs-keyword">new</span> FilesCollection(options.files || [], {
+          active: options.active
+        }),
+        el: docsEl
+      });
+      <span class="hljs-keyword">this</span>.registerSubview(<span class="hljs-keyword">this</span>.docsView);
+    }
+  }
+});
+</code></pre></div>
+      </div>
+      
+    </div>
+  </div>
+
+  <footer>
+
+  </footer>
+
+  <script src="../../../../../assets/scripts/scripts.js"></script>
+  <script>
+  var config = {"files":["Gruntfile.js","README.md","lib/blocks-collection.js","lib/index.js","lib/rendering-utils.js","node_modules/ampersand-collection/ampersand-collection.js","node_modules/ampersand-model/ampersand-model.js","node_modules/files-collection/index.js","resources/themes/default/assets/scripts/scripts.src.js","resources/themes/default/assets/scripts/search.src.js","resources/themes/default/assets/styles/styles.css","resources/themes/default/file.jst","resources/themes/default/navigation-item.jst","resources/themes/default/navigation.jst","tasks/gtfd.js"],"active":"resources/themes/default/assets/scripts/scripts.src.js"};
+  config.files = (config.files || []).map(function (filepath) {
+    return { filepath: filepath };
+  });
+  config.el = document.body;
+  new gtfd(config);
+  </script>
+</body>
+</html>
