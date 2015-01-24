@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/zeropaper/grunt-gtfd.png?label=ready&title=Ready)](https://waffle.io/zeropaper/grunt-gtfd)
 # grunt-gtfd
 
 A [grunt](http://gruntjs.com) task to generate fine documentation.
