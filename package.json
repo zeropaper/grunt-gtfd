@@ -5,7 +5,8 @@
   "main": "tasks/gtfd.js",
   "scripts": {
     "docs": "npm install && npm install grunt-cli && ./node_modules/grunt-cli/bin/grunt",
-    "test": "npm install && npm install grunt-cli && ./node_modules/grunt-cli/bin/grunt mochacli"
+    "test": "npm install && npm install grunt-cli && ./node_modules/grunt-cli/bin/grunt mochacli",
+    "browserify-client": "browserify -s gtfd resources/themes/default/assets/scripts/scripts.src.js -o resources/themes/default/assets/scripts/scripts.js"
   },
   "repository": {
     "type": "git",
@@ -40,6 +41,7 @@
     "ampersand-collection": "1.4.0",
     "ampersand-model": "4.0.3",
     "ampersand-view": "7.2.0",
+    "faceted-search": "^0.0.1",
     "files-collection": "0.0.1",
     "glob": "4.3.4",
     "highlight.js": "8.4.0",

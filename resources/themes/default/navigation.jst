@@ -1,9 +1,24 @@
 <nav class="docs-nav">
   <div class="search"></div>
+
   <div class="toggle">Files</div>
-  <ul class="directory root"><% collection.get(".").files.forEach(function (child) { %>
-    <li class="<%= (child.active ? "active" : (child.trail ? "trail" : "")) %>">
-      <%= navigationItem({ model: child, navigationItem: navigationItem }) %>
+
+  <ul class="directory root">
+  <% var index = collection.index(); if (index) { %>
+    <li class="index">
+      <a href="<%- index.fileurl %>.html">Home</a>
     </li>
-  <% }) %></ul>
+  <% } %>
+
+  <% collection.get(".").files.forEach(function (child) {
+    if (!child.isIndex) { %>
+    <li class="<%- (child.active ? "active" : (child.trail ? "trail" : "")) %>">
+      <%= navigationItem({
+        model: child,
+        navigationItem: navigationItem
+      }) %>
+    </li>
+  <% }
+  }) %>
+  </ul>
 </nav>

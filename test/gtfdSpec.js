@@ -22,6 +22,7 @@ describe('gtfd library', function () {
     'example.js',
     'example.less',
     'dir/example.html',
+    'dir/README.md',
     'dir/sub/example.md'
   ];
 
@@ -52,12 +53,12 @@ describe('gtfd library', function () {
 
       expect(fileObjs).to.be.an('array');
 
-      expect(fileObjs.length).to.be(5);
+      expect(fileObjs.length).to.be(6);
     });
   });
 
   describe('FilesCollection', function () {
-    it('needs a `destination` option', function () {
+    it('needs a "destination" option', function () {
       expect(function () {
         new FilesCollection(fileObjs, {
           cwd: testCwd,
@@ -73,19 +74,31 @@ describe('gtfd library', function () {
     });
 
 
-    it('has a `cwd` property', function () {
+    it('has a "cwd" property', function () {
       expect(collection.cwd).not.to.be(undefined);
 
       expect(collection.cwd).to.be(testCwd);
     });
 
 
-    it('has a `destination` property', function () {
+    it('has a "destination" property', function () {
       expect(collection.destination).not.to.be(undefined);
     });
 
+    describe('index method', function () {
+      var model;
 
-    describe('FileModel', function () {
+      it('returns the "README.md" model by default', function () {
+        expect(function () {
+          model = collection.index();
+        }).not.to.throwError(err('index'));
+
+        expect(model.filepath).to.be('README.md');
+      });
+    });
+
+
+    describe('FilesCollection.File', function () {
       before(function () {
         model = collection.get('example.js');
       });
@@ -129,6 +142,27 @@ describe('gtfd library', function () {
     });
 
 
+    describe('FilesCollection.Directory', function () {
+      var directory;
+      before(function () {
+        directory = collection.get('dir');
+      });
+
+      describe('index method', function () {
+        var model;
+
+        it('returns the "README.md" model by default', function () {
+          expect(function () {
+            model = directory.index();
+          }).not.to.throwError(err('index'));
+
+          expect(model.basename).to.be('README.md');
+          expect(model.filepath).to.be('dir/README.md');
+        });
+      });
+    });
+
+
     describe('rendering', function () {
       it('does not make problems', function () {
         expect(function () {
@@ -137,47 +171,63 @@ describe('gtfd library', function () {
       });
 
       describe('project documentation scaffolding', function () {
-        it('has a `index.html` file', function () {
+        it('has a "index.html" file generated from "README.md"', function () {
           expect(fs.existsSync(tmpDir + '/index.html')).to.be(true);
         });
 
-        it('has a `example.js.html` file', function () {
+        it('has no "README.md.html" because it was used to generate "index.html"', function () {
+          expect(fs.existsSync(tmpDir + '/README.md.html')).to.be(false);
+        });
+
+        it('has a "example.js.html" file', function () {
           expect(fs.existsSync(tmpDir + '/example.js.html')).to.be(true);
         });
 
-        it('has a `example.less.html`', function () {
+        it('has a "example.less.html"', function () {
           expect(fs.existsSync(tmpDir + '/example.less.html')).to.be(true);
         });
 
-        it('has a `dir/example.html.html` file', function () {
+        it('has a "dir/index.html" file generated from "dir/README.md"', function () {
+          expect(fs.existsSync(tmpDir + '/dir/index.html')).to.be(true);
+        });
+
+        it('has no "dir.html"', function () {
+          expect(fs.existsSync(tmpDir + '/dir.html')).to.be(false);
+        });
+
+        it('has no "dir/README.md.html" because it was used to generate "dir/index.html"', function () {
+          expect(fs.existsSync(tmpDir + '/dir/README.md.html')).to.be(false);
+        });
+
+        it('has a "dir/example.html.html" file', function () {
           expect(fs.existsSync(tmpDir + '/dir/example.html.html')).to.be(true);
         });
 
-        it('has a `dir/sub/example.md.html` file', function () {
+        it('has a "dir/sub/example.md.html" file', function () {
           expect(fs.existsSync(tmpDir + '/dir/sub/example.md.html')).to.be(true);
         });
 
-        it('has a `assets/styles/styles.css` file', function () {
+        it('has a "assets/styles/styles.css" file', function () {
           expect(fs.existsSync(tmpDir + '/assets/styles/styles.css')).to.be(true);
         });
 
-        it('has a `assets/scripts/scripts.js` file', function () {
+        it('has a "assets/scripts/scripts.js" file', function () {
           expect(fs.existsSync(tmpDir + '/assets/scripts/scripts.js')).to.be(true);
         });
 
-        it('has no `file.jst` file', function () {
+        it('has no "file.jst" file', function () {
           expect(fs.existsSync(tmpDir + '/file.jst')).to.be(false);
         });
 
-        it('has no `navigation.jst` file', function () {
+        it('has no "navigation.jst" file', function () {
           expect(fs.existsSync(tmpDir + '/file.jst')).to.be(false);
         });
 
-        it('has no `navigation-item.jst` file', function () {
+        it('has no "navigation-item.jst" file', function () {
           expect(fs.existsSync(tmpDir + '/file.jst')).to.be(false);
         });
 
-        xit('has a `assets/favicon.ico` file', function () {
+        xit('has a "assets/favicon.ico" file', function () {
           expect(fs.existsSync(tmpDir + '/assets/favicon.ico')).to.be(true);
         });
       });

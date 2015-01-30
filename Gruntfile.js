@@ -6,9 +6,13 @@ module.exports = function (grunt) {
   grunt.task.loadTasks('./tasks');
 
   var sources = [
-    'node_modules/ampersand-{model,collection}/ampersand-{model,collection}.js',
-    'node_modules/files-collection/{index,node}.js',
+    'node_modules/ampersand-{state,model,collection}/ampersand-{state,model,collection}.js',
+    'node_modules/ampersand-{state,model,collection}/{README,DOCUMENTATION}.md',
+    'node_modules/{files-collection,faceted-search}/*.{css,js}',
+    'node_modules/{files-collection,faceted-search}/{README,DOCUMENTATION}.md',
+
     'README.md', // will become `index.html`
+    '{resources,test,tasks,lib}/**/{README,DOCUMENTATION}.md',
     'Gruntfile.js',
     'lib/**/*.js',
     'resources/themes/default/**/*.{jst,src.js,css}',
@@ -66,7 +70,7 @@ module.exports = function (grunt) {
 
       project: {
         files: sources,
-        tasks: ['gtfd:project', 'mochacli']
+        tasks: ['build']
       },
 
       test: {
