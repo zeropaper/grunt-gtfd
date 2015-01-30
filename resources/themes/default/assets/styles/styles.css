@@ -589,6 +589,78 @@ pre .hljs-tex .hljs-formula {
 
 
 
+.faceted-search {
+  padding: 0 0 15px 0;
+  position: relative;
+  z-index: 2;
+}
+
+.faceted-search input {
+  max-width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  border: 1px solid #666;
+}
+
+.faceted-search input:focus {
+  outline: none;
+  background-color: #fafafa;
+}
+
+.faceted-search .results {
+  border: 1px solid #666;
+  background-color: #fff;
+  position: absolute;
+  top: 100%;
+  margin-top: -16px;
+  box-shadow: 0 2px 2px #666;
+}
+.faceted-search .results[count="0"] {
+  display: none;
+}
+
+.faceted-search .score {
+  font-size: 0.85rem;
+  position: absolute;
+  top: 2;
+  right: 4;
+}
+
+.faceted-search .results > div {
+  position: relative;
+  padding: 10px;
+
+  font-family: monospace;
+  overflow: hidden;
+  font-size: 0.85rem;
+  text-overflow: ellipsis;
+}
+
+.faceted-search .results > div:hover {
+  background-color: #fafafa;
+}
+
+.faceted-search .results > .focused,
+.faceted-search .results > .focused:hover {
+  background-color: #eee;
+}
+
+.faceted-search .results > div + div {
+  border-top: 1px solid #666;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 *,
 *:before,
 *:after {
@@ -623,7 +695,10 @@ body > header {
 }
 
 body > header > h1 {
-  font-size: 22px;
+  font-size: 1.4rem;
+}
+body > header > .row {
+  min-height: 45px;
 }
 
 body > footer {
@@ -633,6 +708,10 @@ body > footer {
 
 body {
   color: #666;
+}
+
+pre > code {
+  word-wrap: break-word;
 }
 
 a,
@@ -649,41 +728,36 @@ body > footer,
 .container,
 .docs-nav {
   background-color: white;
-  padding: 0 15px;
 }
 
-.container,
-.docs-nav {
-  position: relative;
-  float: left;
-}
-
+body > header,
+body > footer,
 .container {
-  width: 100%;
-  margin-left: -200px;
-  padding: 0 15px 0 230px;
-  z-index: 1;
+  padding: 0 15px 0 30px;
 }
 
-body > header h3,
+.content {
+  overflow: hidden;
+}
+
+.row {
+  display: block;
+  overflow: hidden;
+  position: relative;
+  margin: 0 -15px;
+}
+
 .breadcrumb {
   display: inline-block;
-  line-height: 25px;
-  vertical-align: baseline;
-  margin-top: 15px;
+  font-family: monospace;
   height: 30px;
-  margin-bottom: 0;
-}
-body > header h3 {
-  padding-left: 15px;
-}
-.breadcrumb {
-  padding-right: 15px;
-}
-
-.breadcrumb {
+  line-height: 25px;
   list-style: none;
-  padding-left: 0;
+  margin-bottom: 0;
+  margin-top: 15px;
+  padding-left: 15px;
+  padding-right: 15px;
+  vertical-align: baseline;
 }
 
 .breadcrumb li {
@@ -695,81 +769,88 @@ body > header h3 {
   content: '/';
 }
 
-.docs-nav {
-  width: 200px;
-  padding: 15px;
-  z-index: 2;
-  background-color: #aaa;
-}
 
-.docs-nav .search {
-  padding: 0 0 15px 0;
-  position: relative;
-  z-index: 2;
-}
-
-.docs-nav .search input {
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-.docs-nav .results {
-  background-color: #fff;
-  position: absolute;
-  box-shadow: 0 2px 2px #666;
-  max-width: 100%;
-}
-.docs-nav .score {
-  font-size: 12px;
-  position: absolute;
-  top: 2;
-  right: 4;
-}
-.docs-nav .results > div {
-  padding: 15px;
-  position: relative;
-}
-.docs-nav .results > div + div {
-  border-top: 1px solid #666;
-}
-
-.row {
-  display: block;
-  overflow: hidden;
-  position: relative;
-  margin: 0 -15px;
-}
-
-.col-md-6 {
-  width: 50%;
+.content .documentation,
+.content .code {
+  width: 100%;
   position: relative;
   min-height: 1px;
   float: left;
   padding: 0 15px;
+  overflow: hidden;
+}
+
+.content .documentation:before,
+.content .code:after {
+  width: 100%;
+  display: block;
 }
 
 
-@media screen and (max-width: 720px) {
+.content .documentation {
+  clear: left;
+  border-top: 1px dashed #aaa;
+}
+.content .documentation:first-child {
+  border-top: none;
+}
+
+.content .code {
+  clear: right;
+}
+
+
+.content > div > pre {
+  margin: 0;
+}
+
+
+
+.faceted-search input {
+  background-color: #eee;
+  border: none;
+  border-bottom: 2px solid #aaa;
+}
+
+
+
+
+.docs-nav {
+  background-color: rgba(220, 220, 220, 0.95);
+  bottom: 0;
+  margin-left: -185px;
+  max-height: 100%;
+  padding: 15px;
+  position: fixed;
+  top:  0;
+  transition: margin-left 0.218s ease;
+  width: 200px;
+  z-index: 2;
+}
+
+.docs-nav:hover {
+  margin-left: 0;
+}
+
+.container {
+  width: 100%;
+  z-index: 1;
+}
+
+@media screen and (min-width: 1280px) {
   .docs-nav {
-    position: absolute;
-    max-height: 100%;
-    margin-left: -185px;
-    transition: margin-left 0.218s ease;
-
-    top:  0;
-    bottom: 0;
-}
-  .docs-nav:hover {
     margin-left: 0;
   }
 
+  body > header,
+  body > footer,
   .container {
-    margin-left: 0;
-    padding-left: 15px;
+    padding-left: 215px;
   }
 
-  .col-md-6 {
-    width: 100%;
+  .content .documentation,
+  .content .code {
+    width: 50%;
   }
 }
 
@@ -777,8 +858,18 @@ body > header h3 {
 
 
 
-
-
+h1:hover > .anchor:after,
+h2:hover > .anchor:after,
+h3:hover > .anchor:after,
+h4:hover > .anchor:after,
+h5:hover > .anchor:after,
+h6:hover > .anchor:after {
+  padding-left: 3px;
+  font-family: monospace;
+  display: inline-block;
+  content: '¶';
+  position: absolute;
+}
 
 
 
@@ -791,6 +882,50 @@ ul.directory {
   overflow: hidden;
 }
 
+ul.directory.root {
+  position: absolute;
+  overflow: auto;
+  bottom: 15px;
+  top: 90px;
+  left: 0;
+  right: 0;
+  padding: 0 15px;
+}
+
+
+ul.directory.root::-webkit-scrollbar{
+  width: 8px;
+  height: 8px;
+}
+
+ul.directory.root::-webkit-scrollbar-button:start:decrement,
+ul.directory.root::-webkit-scrollbar-button:end:increment {
+  display: block;
+  height: 0;
+  background-color: transparent;
+}
+
+ul.directory.root::-webkit-scrollbar-track-piece {
+  background-color: #FAFAFA;
+  -webkit-border-radius: 0;
+  -webkit-border-bottom-right-radius: 3px;
+  -webkit-border-bottom-left-radius: 3px;
+}
+ul.directory.root::-webkit-scrollbar-thumb:vertical {
+  height: 50px;
+  background-color: #AFAFAF;
+  -webkit-border-radius: 3px;
+}
+
+ul.directory.root::-webkit-scrollbar-thumb:horizontal {
+  width: 50px;
+  background-color: #AFAFAF;
+  -webkit-border-radius: 3px;
+}
+
+
+
+
 ul.directory > li {
   padding: 0;
   margin: 0;
@@ -798,11 +933,11 @@ ul.directory > li {
 
 ul.directory > li > a,
 ul.directory > li > span {
-  line-height: 28px;
-  font-size: 16px;
+  font-family: monospace;
+
   cursor: pointer;
   display: block;
-  padding: 0 15px;
+  padding: 5px 0;
 }
 
 ul.directory > li > ul {
@@ -810,50 +945,38 @@ ul.directory > li > ul {
 }
 
 ul.directory > li.trail > ul,
-ul.directory > li.open > ul {
+ul.directory > li.open > ul,
+ul.directory > li.active > ul {
   max-height: 100000px;
 }
-
-ul.directory > li.trail {
-}
-
-ul.directory > li.active > a,
-ul.directory > li.active:hover > a {
-}
-
-ul.directory > li:hover > a,
-ul.directory > li:hover > span {
-}
-
-
 
 
 .directory .directory > li > a,
 .directory .directory > li > span {
-  padding-left: 25px;
+  padding-left: 15px;
 }
 
 .directory .directory .directory > li > a,
 .directory .directory .directory > li > span {
-  padding-left: 35px;
+  padding-left: 25px;
 }
 
 .directory .directory .directory .directory > li > a,
 .directory .directory .directory .directory > li > span {
-  padding-left: 45px;
+  padding-left: 35px;
 }
 
 .directory .directory .directory .directory .directory > li > a,
 .directory .directory .directory .directory .directory > li > span {
-  padding-left: 55px;
+  padding-left: 45px;
 }
 
 .directory .directory .directory .directory .directory .directory > li > a,
 .directory .directory .directory .directory .directory .directory > li > span {
-  padding-left: 65px;
+  padding-left: 55px;
 }
 
 .directory .directory .directory .directory .directory .directory .directory > li > a,
 .directory .directory .directory .directory .directory .directory .directory > li > span {
-  padding-left: 75px;
+  padding-left: 65px;
 }

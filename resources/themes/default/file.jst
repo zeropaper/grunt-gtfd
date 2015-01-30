@@ -1,43 +1,29 @@
-<%
-/*
-console.info('log in resources/themes/default/file.jst', model.toJSON());
-*/
-%>
 <html>
+<% var index = model.collection.index(); %>
 <head>
-  <title><%= pageTitle %></title>
-  <link type="text/css" rel="stylesheet" href="<%= assets %>/styles/styles.css" />
+  <title><%- model.title %></title>
+  <link type="text/css" rel="stylesheet" href="<%- model.relative('assets/styles/styles.css') %>" />
 </head>
+
 <body>
   <header>
     <div class="row">
-      <h3><a href="<%= model.relative('index') %>.html">Index</a></h3>
-      <%= breadcrumb %>
+      <% if (index && !model.inDir('.')) { %>
+        <%= breadcrumb %>
+      <% } %>
     </div>
-    <h1><%= pageTitle %></h1>
+    <h1><%- model.title %></h1>
   </header>
 
   <%= navigation %>
 
 
   <div class="container content">
-    <div>
-      <%= model.body %>
-
-      <% model.blocks.forEach(function (block) { %>
-      <div class="row">
-        <div class="col-md-12 col-lg-6"><%= block.documentation %></div>
-        <div class="col-md-12 col-lg-6"><%= block.code %></div>
-      </div>
-      <% }); %>
-    </div>
+    <%= body ? body : model.blocks.HTML() %>
   </div>
 
-  <footer>
 
-  </footer>
-
-  <script src="<%= assets %>/scripts/scripts.js"></script>
+  <script src="<%- model.relative('assets/scripts/scripts.js') %>"></script>
   <script>
   var config = <%= config %>;
   config.files = (config.files || []).map(function (filepath) {

@@ -29,12 +29,12 @@ module.exports = function (grunt) {
         grunt.verbose.writeln('Changes on ' + model.filepath);
       });
 
-      collection.on('writefile', function (model) {
-        grunt.log.writeln('Writing ' + model.filepath + ' documentation');
+      collection.on('writefile', function (model, destination) {
+        grunt.verbose.oklns('Writing ' + model.filepath + ' documentation in ' + destination);
       });
 
       collection.on('copyasset', function (assetpath) {
-        grunt.log.writeln('Copying ' + assetpath + ' asset');
+        grunt.verbose.oklns('Copying ' + assetpath + ' asset');
       });
 
       collection.reset(FilesCollection.expand(files.src));
