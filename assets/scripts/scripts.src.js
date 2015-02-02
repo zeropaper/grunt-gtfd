@@ -9,7 +9,7 @@
 'use strict';
 var FilesCollection = require('files-collection');
 var View            = require('ampersand-view');
-var DocsSearchView  = require('./search.src');
+var DocsSearchView  = require('faceted-search');
 
 
 
@@ -36,7 +36,16 @@ var DocsNavView = View.extend({
     if (searchEl) {
       this.searchView = new DocsSearchView({
         collection: this.collection,
-        el: searchEl
+
+        el: searchEl,
+
+        prepareResult: function (result) {
+          var obj = {};
+          obj.score = result.score;
+          obj.label = result.model.filepath;
+          obj.value = result.model.fileurl + '.html';
+          return obj;
+        }
       });
       this.registerSubview(this.searchView);
     }
@@ -54,6 +63,7 @@ module.exports = View.extend({
         collection: new FilesCollection(options.files || [], {
           active: options.active
         }),
+
         el: docsEl
       });
       this.registerSubview(this.docsView);

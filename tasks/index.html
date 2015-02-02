@@ -9,8 +9,6 @@
   <header>
     <div class="row">
       
-        <ul class="breadcrumb"><li>tasks</li></ul>
-      
     </div>
     <h1></h1>
   </header>
@@ -413,7 +411,7 @@
 
     </li>
   
-    <li class="trail">
+    <li class="active">
       
   
   
@@ -423,7 +421,7 @@
   <ul class="directory">
   
 
-    <li class="active">
+    <li class="">
       
   <a href="gtfd.js.html">gtfd.js</a>
 
@@ -442,57 +440,13 @@
 
 
   <div class="container content">
-    <div class="row"><div class="documentation"></div><div class="code"><pre><code class="js"><span class="hljs-keyword">var</span> FilesCollection = <span class="hljs-built_in">require</span>(<span class="hljs-string">'./../lib'</span>);
-
-<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(grunt)</span> </span>{
-  grunt.registerMultiTask(<span class="hljs-string">'gtfd'</span>, <span class="hljs-string">'Generates documentation'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>{
-    <span class="hljs-keyword">var</span> defaults = {};
-    <span class="hljs-keyword">var</span> options = <span class="hljs-keyword">this</span>.options(defaults);
-
-    <span class="hljs-keyword">this</span>.files.forEach(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(files, num)</span> </span>{
-
-      options.destination = files.dest || options.destination;
-      options.cwd = files.orig.cwd || <span class="hljs-string">''</span>;
-
-      grunt.verbose.writeln(<span class="hljs-string">'Processing documentation (num '</span> + num + <span class="hljs-string">') destination '</span> +
-                            options.destination + <span class="hljs-string">' with '</span> + files.src.length + <span class="hljs-string">' files.'</span>);
-
-      <span class="hljs-keyword">var</span> collection = <span class="hljs-keyword">new</span> FilesCollection([], options);
-      <span class="hljs-comment">/*
-      collection.on('all', function (evtName) {
-        grunt.verbose.writeln('Documentation event ' + evtName + '...');
-      });
-      */</span>
-      collection.on(<span class="hljs-string">'add'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(model)</span> </span>{
-        grunt.verbose.writeln(<span class="hljs-string">'Added '</span> + model.filepath + <span class="hljs-string">' '</span> +
-                              (model.isFile &amp;&amp; !model.isDir ? <span class="hljs-string">'file'</span> : <span class="hljs-string">'directory'</span>) +
-                              <span class="hljs-string">' to the documentation'</span>);
-      });
-
-      collection.on(<span class="hljs-string">'change'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(model)</span> </span>{
-        grunt.verbose.writeln(<span class="hljs-string">'Changes on '</span> + model.filepath);
-      });
-
-      collection.on(<span class="hljs-string">'writefile'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(model, destination)</span> </span>{
-        grunt.verbose.oklns(<span class="hljs-string">'Writing '</span> + model.filepath + <span class="hljs-string">' documentation in '</span> + destination);
-      });
-
-      collection.on(<span class="hljs-string">'copyasset'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(assetpath)</span> </span>{
-        grunt.verbose.oklns(<span class="hljs-string">'Copying '</span> + assetpath + <span class="hljs-string">' asset'</span>);
-      });
-
-      collection.reset(FilesCollection.expand(files.src));
-      collection.writeFiles();
-    });
-  });
-};
-</code></pre></div></div>
+    <!-- index -->
   </div>
 
 
   <script src="../assets/scripts/scripts.js"></script>
   <script>
-  var config = {"files":["Gruntfile.js","README.md","lib/blocks-collection.js","lib/index.js","lib/rendering-utils.js","node_modules/ampersand-collection/README.md","node_modules/ampersand-collection/ampersand-collection.js","node_modules/ampersand-model/README.md","node_modules/ampersand-model/ampersand-model.js","node_modules/faceted-search/README.md","node_modules/faceted-search/index.js","node_modules/faceted-search/results.js","node_modules/faceted-search/styles.css","node_modules/files-collection/DOCUMENTATION.md","node_modules/files-collection/README.md","node_modules/files-collection/index.js","node_modules/files-collection/node.js","resources/test/README.md","resources/test/dir/README.md","resources/test/dir/sub/README.md","resources/themes/README.md","resources/themes/default/README.md","resources/themes/default/assets/scripts/scripts.src.js","resources/themes/default/assets/styles/styles.css","resources/themes/default/file.jst","resources/themes/default/navigation-item.jst","resources/themes/default/navigation.jst","tasks/gtfd.js"],"active":"tasks/gtfd.js"};
+  var config = {"files":["Gruntfile.js","README.md","lib/blocks-collection.js","lib/index.js","lib/rendering-utils.js","node_modules/ampersand-collection/README.md","node_modules/ampersand-collection/ampersand-collection.js","node_modules/ampersand-model/README.md","node_modules/ampersand-model/ampersand-model.js","node_modules/faceted-search/README.md","node_modules/faceted-search/index.js","node_modules/faceted-search/results.js","node_modules/faceted-search/styles.css","node_modules/files-collection/DOCUMENTATION.md","node_modules/files-collection/README.md","node_modules/files-collection/index.js","node_modules/files-collection/node.js","resources/test/README.md","resources/test/dir/README.md","resources/test/dir/sub/README.md","resources/themes/README.md","resources/themes/default/README.md","resources/themes/default/assets/scripts/scripts.src.js","resources/themes/default/assets/styles/styles.css","resources/themes/default/file.jst","resources/themes/default/navigation-item.jst","resources/themes/default/navigation.jst","tasks/gtfd.js"],"active":"tasks"};
   config.files = (config.files || []).map(function (filepath) {
     return { filepath: filepath };
   });

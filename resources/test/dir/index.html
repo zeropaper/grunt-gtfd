@@ -9,7 +9,7 @@
   <header>
     <div class="row">
       
-        <ul class="breadcrumb"><li>resources</li><li>themes</li><li>default</li></ul>
+        <ul class="breadcrumb"><li>resources</li><li>test</li></ul>
       
     </div>
     <h1></h1>
@@ -236,86 +236,48 @@
   <ul class="directory">
   
 
-    <li class="">
-      
-  
-  
-    <a class="index" href="../../test/index.html">test</a>
-  
-
-  <ul class="directory">
-  
-
-    <li class="">
-      
-  
-  
-    <a class="index" href="../../test/dir/index.html">dir</a>
-  
-
-  <ul class="directory">
-  
-
-    <li class="">
-      
-  
-  
-    <a class="index" href="../../test/dir/sub/index.html">sub</a>
-  
-
-  <ul class="directory">
-  
-  </ul>
-
-
-    </li>
-
-    
-  </ul>
-
-
-    </li>
-
-    
-  </ul>
-
-
-    </li>
-
-    
-
     <li class="trail">
       
   
   
-    <a class="index" href="../index.html">themes</a>
+    <a class="index" href="../index.html">test</a>
   
 
   <ul class="directory">
   
-
-    <li class="trail">
-      
-  
-  
-    <a class="index" href="index.html">default</a>
-  
-
-  <ul class="directory">
-  
-
-    <li class="">
-      
-  <a href="file.jst.html">file.jst</a>
-
-
-    </li>
-
-    
 
     <li class="active">
       
-  <a href="navigation-item.jst.html">navigation-item.jst</a>
+  
+  
+    <a class="index" href="index.html">dir</a>
+  
+
+  <ul class="directory">
+  
+
+    <li class="">
+      
+  
+  
+    <a class="index" href="sub/index.html">sub</a>
+  
+
+  <ul class="directory">
+  
+  </ul>
+
+
+    </li>
+
+    
+  </ul>
+
+
+    </li>
+
+    
+  </ul>
 
 
     </li>
@@ -324,7 +286,45 @@
 
     <li class="">
       
-  <a href="navigation.jst.html">navigation.jst</a>
+  
+  
+    <a class="index" href="../../themes/index.html">themes</a>
+  
+
+  <ul class="directory">
+  
+
+    <li class="">
+      
+  
+  
+    <a class="index" href="../../themes/default/index.html">default</a>
+  
+
+  <ul class="directory">
+  
+
+    <li class="">
+      
+  <a href="../../themes/default/file.jst.html">file.jst</a>
+
+
+    </li>
+
+    
+
+    <li class="">
+      
+  <a href="../../themes/default/navigation-item.jst.html">navigation-item.jst</a>
+
+
+    </li>
+
+    
+
+    <li class="">
+      
+  <a href="../../themes/default/navigation.jst.html">navigation.jst</a>
 
 
     </li>
@@ -353,7 +353,7 @@
 
     <li class="">
       
-  <a href="assets/scripts/scripts.src.js.html">scripts.src.js</a>
+  <a href="../../themes/default/assets/scripts/scripts.src.js.html">scripts.src.js</a>
 
 
     </li>
@@ -378,7 +378,7 @@
 
     <li class="">
       
-  <a href="assets/styles/styles.css.html">styles.css</a>
+  <a href="../../themes/default/assets/styles/styles.css.html">styles.css</a>
 
 
     </li>
@@ -442,40 +442,14 @@
 
 
   <div class="container content">
-    <div class="row"><div class="documentation"></div><div class="code"><pre><code class="jst">&lt;% if (model.isDir) { %&gt;
-  &lt;% var index = model.index(); %&gt;
-  &lt;% if (!index) { %&gt;
-    &lt;span class="dirname"&gt;&lt;%- model.basename %&gt;&lt;/span&gt;
-  &lt;% }
-  else { %&gt;
-    &lt;a class="index" href="&lt;%- index.fileurl %&gt;.html"&gt;&lt;%- model.basename %&gt;&lt;/a&gt;
-  &lt;% } %&gt;
+    <!-- index --><p>This will be the index of the <code>dir</code> directory…</p>
 
-  &lt;ul class="directory"&gt;
-  &lt;% model.files.forEach(function (child) {
-       if (!child.isIndex) { %&gt;
-
-    &lt;li class="&lt;%- (child.active ? "active" : (child.trail ? "trail" : "")) %&gt;"&gt;
-      &lt;%= navigationItem({
-        model: child,
-        navigationItem: navigationItem
-      }) %&gt;
-    &lt;/li&gt;
-
-    &lt;% }
-  }) %&gt;
-  &lt;/ul&gt;
-&lt;% }
-else if (!model.isIndex) { %&gt;
-  &lt;a href="&lt;%- model.fileurl %&gt;.html"&gt;&lt;%- model.basename %&gt;&lt;/a&gt;
-&lt;% } %&gt;
-</code></pre></div></div>
   </div>
 
 
   <script src="../../../assets/scripts/scripts.js"></script>
   <script>
-  var config = {"files":["Gruntfile.js","README.md","lib/blocks-collection.js","lib/index.js","lib/rendering-utils.js","node_modules/ampersand-collection/README.md","node_modules/ampersand-collection/ampersand-collection.js","node_modules/ampersand-model/README.md","node_modules/ampersand-model/ampersand-model.js","node_modules/faceted-search/README.md","node_modules/faceted-search/index.js","node_modules/faceted-search/results.js","node_modules/faceted-search/styles.css","node_modules/files-collection/DOCUMENTATION.md","node_modules/files-collection/README.md","node_modules/files-collection/index.js","node_modules/files-collection/node.js","resources/test/README.md","resources/test/dir/README.md","resources/test/dir/sub/README.md","resources/themes/README.md","resources/themes/default/README.md","resources/themes/default/assets/scripts/scripts.src.js","resources/themes/default/assets/styles/styles.css","resources/themes/default/file.jst","resources/themes/default/navigation-item.jst","resources/themes/default/navigation.jst","tasks/gtfd.js"],"active":"resources/themes/default/navigation-item.jst"};
+  var config = {"files":["Gruntfile.js","README.md","lib/blocks-collection.js","lib/index.js","lib/rendering-utils.js","node_modules/ampersand-collection/README.md","node_modules/ampersand-collection/ampersand-collection.js","node_modules/ampersand-model/README.md","node_modules/ampersand-model/ampersand-model.js","node_modules/faceted-search/README.md","node_modules/faceted-search/index.js","node_modules/faceted-search/results.js","node_modules/faceted-search/styles.css","node_modules/files-collection/DOCUMENTATION.md","node_modules/files-collection/README.md","node_modules/files-collection/index.js","node_modules/files-collection/node.js","resources/test/README.md","resources/test/dir/README.md","resources/test/dir/sub/README.md","resources/themes/README.md","resources/themes/default/README.md","resources/themes/default/assets/scripts/scripts.src.js","resources/themes/default/assets/styles/styles.css","resources/themes/default/file.jst","resources/themes/default/navigation-item.jst","resources/themes/default/navigation.jst","tasks/gtfd.js"],"active":"resources/test/dir"};
   config.files = (config.files || []).map(function (filepath) {
     return { filepath: filepath };
   });

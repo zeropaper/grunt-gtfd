@@ -9,7 +9,7 @@
   <header>
     <div class="row">
       
-        <ul class="breadcrumb"><li>dir</li><li>sub</li></ul>
+        <ul class="breadcrumb"><li>dir</li></ul>
       
     </div>
     <h1></h1>
@@ -61,7 +61,7 @@
 
     
 
-    <li class="trail">
+    <li class="active">
       
   
   
@@ -71,7 +71,7 @@
   <ul class="directory">
   
 
-    <li class="active">
+    <li class="">
       
   <a href="example.md.html">example.md</a>
 
@@ -96,14 +96,13 @@
 
 
   <div class="container content">
-    <p>markdown has <strong>no</strong> comment…<br>it is directly parsed</p>
-
+    <!-- index -->
   </div>
 
 
   <script src="../../assets/scripts/scripts.js"></script>
   <script>
-  var config = {"files":["README.md","dir/README.md","dir/example.html","dir/sub/README.md","dir/sub/example.md","example.js","example.less"],"active":"dir/sub/example.md"};
+  var config = {"files":["README.md","dir/README.md","dir/example.html","dir/sub/README.md","dir/sub/example.md","example.js","example.less"],"active":"dir/sub"};
   config.files = (config.files || []).map(function (filepath) {
     return { filepath: filepath };
   });

@@ -2,7 +2,7 @@
 
 <head>
   <title></title>
-  <link type="text/css" rel="stylesheet" href="assets/styles/styles.css" />
+  <link type="text/css" rel="stylesheet" href="../assets/styles/styles.css" />
 </head>
 
 <body>
@@ -21,30 +21,30 @@
   <ul class="directory root">
   
     <li class="index">
-      <a href="index.html">Home</a>
+      <a href="../index.html">Home</a>
     </li>
   
 
   
     <li class="">
       
-  <a href="example.js.html">example.js</a>
+  <a href="../example.js.html">example.js</a>
 
 
     </li>
   
     <li class="">
       
-  <a href="example.less.html">example.less</a>
+  <a href="../example.less.html">example.less</a>
 
 
     </li>
   
-    <li class="">
+    <li class="active">
       
   
   
-    <a class="index" href="dir/index.html">dir</a>
+    <a class="index" href="index.html">dir</a>
   
 
   <ul class="directory">
@@ -52,7 +52,7 @@
 
     <li class="">
       
-  <a href="dir/example.html.html">example</a>
+  <a href="example.html.html">example</a>
 
 
     </li>
@@ -63,7 +63,7 @@
       
   
   
-    <a class="index" href="dir/sub/index.html">sub</a>
+    <a class="index" href="sub/index.html">sub</a>
   
 
   <ul class="directory">
@@ -71,7 +71,7 @@
 
     <li class="">
       
-  <a href="dir/sub/example.md.html">example.md</a>
+  <a href="sub/example.md.html">example.md</a>
 
 
     </li>
@@ -94,13 +94,14 @@
 
 
   <div class="container content">
-    <!-- index -->
+    <!-- index --><p>This will be the index of the <code>dir</code> directory…</p>
+
   </div>
 
 
-  <script src="assets/scripts/scripts.js"></script>
+  <script src="../assets/scripts/scripts.js"></script>
   <script>
-  var config = {"files":["README.md","dir/README.md","dir/example.html","dir/sub/README.md","dir/sub/example.md","example.js","example.less"],"active":"."};
+  var config = {"files":["README.md","dir/README.md","dir/example.html","dir/sub/README.md","dir/sub/example.md","example.js","example.less"],"active":"dir"};
   config.files = (config.files || []).map(function (filepath) {
     return { filepath: filepath };
   });

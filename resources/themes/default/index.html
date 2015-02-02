@@ -9,7 +9,7 @@
   <header>
     <div class="row">
       
-        <ul class="breadcrumb"><li>resources</li><li>themes</li><li>default</li></ul>
+        <ul class="breadcrumb"><li>resources</li><li>themes</li></ul>
       
     </div>
     <h1></h1>
@@ -294,7 +294,7 @@
   <ul class="directory">
   
 
-    <li class="trail">
+    <li class="active">
       
   
   
@@ -313,7 +313,7 @@
 
     
 
-    <li class="active">
+    <li class="">
       
   <a href="navigation-item.jst.html">navigation-item.jst</a>
 
@@ -442,40 +442,14 @@
 
 
   <div class="container content">
-    <div class="row"><div class="documentation"></div><div class="code"><pre><code class="jst">&lt;% if (model.isDir) { %&gt;
-  &lt;% var index = model.index(); %&gt;
-  &lt;% if (!index) { %&gt;
-    &lt;span class="dirname"&gt;&lt;%- model.basename %&gt;&lt;/span&gt;
-  &lt;% }
-  else { %&gt;
-    &lt;a class="index" href="&lt;%- index.fileurl %&gt;.html"&gt;&lt;%- model.basename %&gt;&lt;/a&gt;
-  &lt;% } %&gt;
+    <!-- index --><p>README.md</p>
 
-  &lt;ul class="directory"&gt;
-  &lt;% model.files.forEach(function (child) {
-       if (!child.isIndex) { %&gt;
-
-    &lt;li class="&lt;%- (child.active ? "active" : (child.trail ? "trail" : "")) %&gt;"&gt;
-      &lt;%= navigationItem({
-        model: child,
-        navigationItem: navigationItem
-      }) %&gt;
-    &lt;/li&gt;
-
-    &lt;% }
-  }) %&gt;
-  &lt;/ul&gt;
-&lt;% }
-else if (!model.isIndex) { %&gt;
-  &lt;a href="&lt;%- model.fileurl %&gt;.html"&gt;&lt;%- model.basename %&gt;&lt;/a&gt;
-&lt;% } %&gt;
-</code></pre></div></div>
   </div>
 
 
   <script src="../../../assets/scripts/scripts.js"></script>
   <script>
-  var config = {"files":["Gruntfile.js","README.md","lib/blocks-collection.js","lib/index.js","lib/rendering-utils.js","node_modules/ampersand-collection/README.md","node_modules/ampersand-collection/ampersand-collection.js","node_modules/ampersand-model/README.md","node_modules/ampersand-model/ampersand-model.js","node_modules/faceted-search/README.md","node_modules/faceted-search/index.js","node_modules/faceted-search/results.js","node_modules/faceted-search/styles.css","node_modules/files-collection/DOCUMENTATION.md","node_modules/files-collection/README.md","node_modules/files-collection/index.js","node_modules/files-collection/node.js","resources/test/README.md","resources/test/dir/README.md","resources/test/dir/sub/README.md","resources/themes/README.md","resources/themes/default/README.md","resources/themes/default/assets/scripts/scripts.src.js","resources/themes/default/assets/styles/styles.css","resources/themes/default/file.jst","resources/themes/default/navigation-item.jst","resources/themes/default/navigation.jst","tasks/gtfd.js"],"active":"resources/themes/default/navigation-item.jst"};
+  var config = {"files":["Gruntfile.js","README.md","lib/blocks-collection.js","lib/index.js","lib/rendering-utils.js","node_modules/ampersand-collection/README.md","node_modules/ampersand-collection/ampersand-collection.js","node_modules/ampersand-model/README.md","node_modules/ampersand-model/ampersand-model.js","node_modules/faceted-search/README.md","node_modules/faceted-search/index.js","node_modules/faceted-search/results.js","node_modules/faceted-search/styles.css","node_modules/files-collection/DOCUMENTATION.md","node_modules/files-collection/README.md","node_modules/files-collection/index.js","node_modules/files-collection/node.js","resources/test/README.md","resources/test/dir/README.md","resources/test/dir/sub/README.md","resources/themes/README.md","resources/themes/default/README.md","resources/themes/default/assets/scripts/scripts.src.js","resources/themes/default/assets/styles/styles.css","resources/themes/default/file.jst","resources/themes/default/navigation-item.jst","resources/themes/default/navigation.jst","tasks/gtfd.js"],"active":"resources/themes/default"};
   config.files = (config.files || []).map(function (filepath) {
     return { filepath: filepath };
   });
