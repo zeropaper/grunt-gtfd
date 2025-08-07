@@ -35,7 +35,7 @@
     "grunt-contrib-watch": "0.6.1",
     "grunt-mocha-cli": "1.12.0",
     "load-grunt-tasks": "2.0.0",
-    "tmp": "0.0.24"
+    "tmp": "0.2.4"
   },
   "dependencies": {
     "ampersand-collection": "1.4.0",
